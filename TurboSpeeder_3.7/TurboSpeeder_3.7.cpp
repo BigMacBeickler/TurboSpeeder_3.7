@@ -7,18 +7,25 @@
 #include "Point3D.h"
 #include "FileHandler.h"
 
+std::valarray<float> dataarray;
+
 int main()
 {
     clock_t start;
     start = clock();
 
-    //std::cout << "Hello World!\n";
-
     std::cout << "Bitte Dateinamen eingeben: ";
     std::string datafile;
     std::getline(std::cin, datafile);
+    FileHandler fileHandler(datafile);
+	if (!fileHandler.exists()) {
+		std::cout << "Datei existiert nicht. Bitte erneut versuchen.\n";
+		return 1;
+	};
+	dataarray = fileHandler.readCSV();
 
-    std::cout << "Configfile laden. Leer lassen falls keine Configfile geladen werden soll ";   
+
+    std::cout << "Configfile laden. Leer lassen falls keine Configfile geladen werden soll: ";   
     std::string configfile;
     std::getline(std::cin, configfile);  
 
