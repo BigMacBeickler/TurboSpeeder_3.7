@@ -1,11 +1,23 @@
 // TurboSpeeder_3.7.cpp : Diese Datei enthält die Funktion "main". Hier beginnt und endet die Ausführung des Programms.
 
+// TODO:
+/*
+1. Filehandler Fertig machen
+2. Configfile einlesen / definieren
+
+
+
+
+
+*/
+
 #include <iostream>
 #include <ctime>
 #include <string>
 #include "Point2D.h"
 #include "Point3D.h"
 #include "FileHandler.h"
+// What about using namespace std; ?!?!?!?!?!?!?!?
 
 std::valarray<float> dataarray;
 
