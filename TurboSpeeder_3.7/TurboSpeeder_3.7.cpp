@@ -19,6 +19,21 @@
 #include "FileHandler.h"
 // What about using namespace std; ?!?!?!?!?!?!?!?
 
+//Bad practice!!
+
+/*
+
+Consider two libraries called Foo and Bar:
+
+using namespace foo;
+using namespace bar;
+
+Everything works fine, and you can call Blah() from Foo and Quux() from Bar without problems. But one day you upgrade to a new version of Foo 2.0, which now offers a function called Quux(). Now you've got a conflict: Both Foo 2.0 and Bar import Quux() into your global namespace. This is going to take some effort to fix, especially if the function parameters happen to match.
+
+If you had used foo::Blah() and bar::Quux(), then the introduction of foo::Quux() would have been a non-event.
+*/
+
+
 std::valarray<float> dataarray;
 
 int main()
