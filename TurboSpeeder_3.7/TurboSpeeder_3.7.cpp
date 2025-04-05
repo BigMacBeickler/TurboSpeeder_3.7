@@ -13,8 +13,17 @@
 
 
 zu 3.:
-struct 
+struct (Alle Float)
 Timestamps
+X
+Y
+Z
+A1
+A2
+B1
+B2
+C1
+C2
 
 */
 
@@ -39,6 +48,7 @@ Everything works fine, and you can call Blah() from Foo and Quux() from Bar with
 
 If you had used foo::Blah() and bar::Quux(), then the introduction of foo::Quux() would have been a non-event.
 */
+
 
 
 std::valarray<float> dataarray;
