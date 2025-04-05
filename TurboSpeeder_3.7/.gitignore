@@ -101,6 +101,7 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*.db
 
 # Chutzpah Test files
 _Chutzpah*
@@ -115,6 +116,7 @@ ipch/
 *.cachefile
 *.VC.db
 *.VC.VC.opendb
+*.VC.*.opendb
 
 # Visual Studio profiler
 *.psess
