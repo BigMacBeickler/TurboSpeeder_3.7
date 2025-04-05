@@ -25,6 +25,18 @@ B2
 C1
 C2
 
+
+typdef struct {
+ float Datapoint 1;
+ float Datapoint 2;
+ float Datapoint 3;
+ float Datapoint 4;
+ float Datapoint 5;
+ float Datapoint 6;
+} aDataRow;
+
+aDataRow SomeData[numRows];
+
 */
 
 #include <iostream>
