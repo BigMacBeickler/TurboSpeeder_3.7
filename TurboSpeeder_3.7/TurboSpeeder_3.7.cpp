@@ -65,6 +65,7 @@ If you had used foo::Blah() and bar::Quux(), then the introduction of foo::Quux(
 
 std::valarray<float> dataarray;
 
+
 int main()
 {
     clock_t start;
