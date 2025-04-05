@@ -4,10 +4,26 @@
 /*
 1. Filehandler Fertig machen
 2. Configfile einlesen / definieren
+3. Eingelesene Daten in Struktur speichern (Struct dementsprechend erstellen...)
+4. Filter Mittelwert (Einstellbare länge Asymmetrisch) NUR XYZ
+5. Filter Approximation NUR XYZ
+6. Eulerwinkel
+7. AUSGABE in passende Datei
+8. GUI
 
 
-
-xx
+zu 3.:
+struct (Alle Float)
+Timestamps
+X
+Y
+Z
+A1
+A2
+B1
+B2
+C1
+C2
 
 */
 
@@ -32,6 +48,7 @@ Everything works fine, and you can call Blah() from Foo and Quux() from Bar with
 
 If you had used foo::Blah() and bar::Quux(), then the introduction of foo::Quux() would have been a non-event.
 */
+
 
 
 std::valarray<float> dataarray;
