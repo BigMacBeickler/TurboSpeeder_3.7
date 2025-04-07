@@ -1,23 +1,9 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "FileHandler.h"
 
-
-
-class dataContainer
-{
-
-	public:
-		dataContainer(void);
-
-
-	private:
-		std::vector<dataPoints> test;
-		configClass config;
-
-};
-
-struct dataPoints
+struct dataPoint
 {
 public:
 	float time;
@@ -29,10 +15,29 @@ public:
 
 struct configClass
 {
-	public:
-		std::string name;
-		int movingAverageRange;
-		int douglasPeuckerTolerance;
-		int vlleinszuviel;
+public:
+	std::string name;
+	int movingAverageRange;
+	int douglasPeuckerTolerance;
+	int vlleinszuviel;
 
 };
+
+class dataContainer
+{
+
+	public:
+		dataContainer(void);
+		bool getData(FileHandler& file);
+		bool getConfigFile(FileHandler);
+		bool getConfigManual();
+		bool saveConfig();
+		~dataContainer(void);
+
+
+	private:
+		std::vector<dataPoint> dataField;
+		configClass config;
+
+};
+
