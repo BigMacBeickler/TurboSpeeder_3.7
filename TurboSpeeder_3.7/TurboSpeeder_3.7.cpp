@@ -74,14 +74,18 @@ int main()
 
     std::cout << "Bitte Dateinamen eingeben: ";
     std::string dataFileName;
-    std::getline(std::cin, dataFileName);
+    //std::getline(std::cin, dataFileName);
+    dataFileName = "test1.csv";
     FileHandler dataFile(dataFileName);
 	if (!dataFile.exists()) {
 		std::cout << "Datei existiert nicht. Bitte erneut versuchen.\n";
 		return 1;
 	};
     data.getData(dataFile);
-    
+
+    //data.printCoordinates();
+    data.printRotMatrix();
+
     std::cout << "Configfile laden. Leer lassen falls keine Configfile geladen werden soll: ";   
     std::string configFileName;
     std::getline(std::cin, configFileName);

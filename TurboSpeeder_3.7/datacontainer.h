@@ -9,8 +9,6 @@ public:
 	float time;
 	float x, y, z;
 	float rotMatrix[9];
-
-	void setDatapoints();
 };
 
 struct configClass
@@ -20,24 +18,24 @@ public:
 	int movingAverageRange;
 	int douglasPeuckerTolerance;
 	int vlleinszuviel;
-
 };
 
 class dataContainer
 {
-
 	public:
 		dataContainer(void);
 		bool getData(FileHandler& file);
-		bool getConfigFile(FileHandler);
+		bool getConfigFile(FileHandler& file);
 		bool getConfigManual();
 		bool saveConfig();
+		void printCoordinates();
+		void printRotMatrix();
 		~dataContainer(void);
-
 
 	private:
 		std::vector<dataPoint> dataField;
+		std::vector<float> stringToFloatVector(const std::string& str);
 		configClass config;
-
 };
+
 

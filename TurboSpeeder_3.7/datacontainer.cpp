@@ -1,11 +1,9 @@
 #include <iostream>
+#include <sstream>
 #include "datacontainer.h"
+#include <iomanip>
 
 dataContainer::dataContainer(void)
-{
-}
-
-void dataPoint::setDatapoints()
 {
 }
 
@@ -15,20 +13,20 @@ bool dataContainer::getData(FileHandler &file)
 {
 	std::string wholeDataset;
 	wholeDataset = file.read();
+	std::vector converted = stringToFloatVector(wholeDataset);
+
 	size_t blockSize = 1 + 3 + 9; //Zusammensetzung eines Datensatzes
-	std::cout << wholeDataset[wholeDataset.size()-2] << "\n";
-	if(wholeDataset.size() % blockSize != 0){
+	if(converted.size() % blockSize != 0){
 		return false;			//throw std::runtime_error?
 	}
-	std::cout << "hier 2!\n";
-	for (size_t i = 0; i < wholeDataset.size(); i += blockSize) {
+	for (size_t i = 0; i < converted.size(); i += blockSize) {
 		dataPoint dp;
-		dp.time = wholeDataset[i];
-		dp.x = wholeDataset[i + 1];
-		dp.y = wholeDataset[i + 2];
-		dp.z = wholeDataset[i + 3];
+		dp.time = converted[i];
+		dp.x = converted[i + 1];
+		dp.y = converted[i + 2];
+		dp.z = converted[i + 3];
 		for (int j = 0; j < 9; ++j) {
-			dp.rotMatrix[j] = wholeDataset[i + 4 + j];
+			dp.rotMatrix[j] = converted[i + 4 + j];
 		}
 		this->dataField.push_back(dp);
 	}
@@ -36,7 +34,7 @@ bool dataContainer::getData(FileHandler &file)
 	return true;
 }
 
-bool dataContainer::getConfigFile(FileHandler file)
+bool dataContainer::getConfigFile(FileHandler& file)
 {
 	std::cout << "getconfig!\n";
 	return true;
@@ -85,6 +83,46 @@ bool dataContainer::getConfigManual()
 bool dataContainer::saveConfig()
 {
 	return false;
+}
+
+void dataContainer::printCoordinates()
+{
+	std::cout << std::fixed << std::setprecision(6);
+	for (size_t i = 0; i < dataField.size(); i++) {
+		std::cout << "Time: " << dataField[i].time << " ";
+		std::cout << "X: " << dataField[i].x << " ";
+		std::cout << "Y: " << dataField[i].y << " ";
+		std::cout << "Z: " << dataField[i].z << " ";
+	}
+}
+
+void dataContainer::printRotMatrix()
+{
+	std::cout << std::fixed << std::setprecision(6);
+	for (size_t i = 0; i < dataField.size(); i++) {
+		std::cout << "Rx1: " << dataField[i].rotMatrix[0] << " ";
+		std::cout << "Rx2: " << dataField[i].rotMatrix[1] << " ";
+		std::cout << "Rx3: " << dataField[i].rotMatrix[2] << " ";
+		std::cout << "Ry1: " << dataField[i].rotMatrix[3] << " ";
+		std::cout << "Ry2: " << dataField[i].rotMatrix[4] << " ";
+		std::cout << "Ry3: " << dataField[i].rotMatrix[5] << " ";
+		std::cout << "Rz1: " << dataField[i].rotMatrix[6] << " ";
+		std::cout << "Rz2: " << dataField[i].rotMatrix[7] << " ";
+		std::cout << "Rz3: " << dataField[i].rotMatrix[8] << " ";
+	}
+}
+
+//String in Floatvector umwandeln
+std::vector<float> dataContainer::stringToFloatVector(const std::string& str) 
+{
+	std::vector<float> result;
+	std::istringstream iss(str);
+	float value;
+
+	while (iss >> value) {
+		result.push_back(value);
+	}
+	return result;
 }
 
 dataContainer::~dataContainer(void)
