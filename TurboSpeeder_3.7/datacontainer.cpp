@@ -85,7 +85,8 @@ bool dataContainer::saveConfig()
 	return false;
 }
 
-void dataContainer::printCoordinates()
+//const because only read, no write
+void dataContainer::printCoordinates() const
 {
 	std::cout << std::fixed << std::setprecision(6);
 	for (size_t i = 0; i < dataField.size(); i++) {
@@ -96,7 +97,8 @@ void dataContainer::printCoordinates()
 	}
 }
 
-void dataContainer::printRotMatrix()
+//const because only read, no write
+void dataContainer::printRotMatrix() const
 {
 	std::cout << std::fixed << std::setprecision(6);
 	for (size_t i = 0; i < dataField.size(); i++) {

@@ -28,8 +28,8 @@ class dataContainer
 		bool getConfigFile(FileHandler& file);
 		bool getConfigManual();
 		bool saveConfig();
-		void printCoordinates();
-		void printRotMatrix();
+		void printCoordinates() const;
+		void printRotMatrix() const;
 		~dataContainer(void);
 
 	private:

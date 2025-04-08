@@ -74,8 +74,12 @@ int main()
 
     std::cout << "Bitte Dateinamen eingeben: ";
     std::string dataFileName;
-    //std::getline(std::cin, dataFileName);
-    dataFileName = "test1.csv";
+    std::getline(std::cin, dataFileName);
+
+    //schneller debuggen, einfach enter
+    if (dataFileName == "") dataFileName = "test1.csv";
+
+
     FileHandler dataFile(dataFileName);
 	if (!dataFile.exists()) {
 		std::cout << "Datei existiert nicht. Bitte erneut versuchen.\n";
