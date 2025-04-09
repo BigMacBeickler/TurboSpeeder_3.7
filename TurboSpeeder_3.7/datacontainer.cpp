@@ -34,6 +34,11 @@ bool dataContainer::getData(FileHandler &file)
 	return true;
 }
 
+bool deleteEntry(const int n){
+	this.dataField.erase(this.dataField.begin() + n);
+	return true;
+}
+
 bool dataContainer::getConfigFile(FileHandler& file)
 {
 	std::cout << "getconfig!\n";
