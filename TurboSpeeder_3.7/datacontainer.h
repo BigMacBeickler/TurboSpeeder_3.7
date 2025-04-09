@@ -25,6 +25,7 @@ class dataContainer
 	public:
 		dataContainer(void);
 		bool getData(FileHandler& file);
+		bool deleteEntry(const int n);
 		bool getConfigFile(FileHandler& file);
 		bool getConfigManual();
 		bool saveConfig();
