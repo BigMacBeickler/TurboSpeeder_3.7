@@ -16,9 +16,17 @@ bool dataContainer::getData(FileHandler &file)
 	std::vector converted = stringToFloatVector(wholeDataset);
 
 	size_t blockSize = 1 + 3 + 9; //Zusammensetzung eines Datensatzes
-	if(converted.size() % blockSize != 0){
-		return false;			//throw std::runtime_error?
+	
+	try {
+		if (converted.size() % blockSize != 0) {
+			throw("Data is incoherent");
+		}
 	}
+	catch(std::string str) {
+		std::cout << str << " \n";
+		return false;
+	}
+
 	for (size_t i = 0; i < converted.size(); i += blockSize) {
 		dataPoint dp;
 		dp.time = converted[i];
@@ -34,8 +42,18 @@ bool dataContainer::getData(FileHandler &file)
 	return true;
 }
 
-bool deleteEntry(const int n){
-	this.dataField.erase(this.dataField.begin() + n);
+bool dataContainer::deleteEntry(const int n){
+	try {
+		if (this->dataField.begin() >= this->dataField.end()) {
+			throw("It´s emptyyyyyyyy");
+		}
+	}
+	catch (std::string str) {
+		std::cout << str << " \n";
+		return false;
+	}
+	
+	this->dataField.erase(this->dataField.begin() + n);
 	return true;
 }
 
@@ -103,6 +121,7 @@ void dataContainer::printCoordinates() const
 }
 
 //const because only read, no write
+// a bit ugly
 void dataContainer::printRotMatrix() const
 {
 	std::cout << std::fixed << std::setprecision(6);
