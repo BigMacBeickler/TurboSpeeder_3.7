@@ -72,7 +72,7 @@ bool dataContainer::getConfigManual()
 		this->config.movingAverageRange = std::stoi(movingAverageString);
 	}
 	catch (std::invalid_argument) {
-		std::cout << "Das war keine Zahl";
+		std::cout << "Das war keine Zahl\n\n";
 		return false;
 	}
 	std::cout << this->config.movingAverageRange << "\n";
