@@ -42,9 +42,8 @@ aDataRow SomeData[numRows];
 #include <iostream>
 #include <ctime>
 #include <string>
-#include "Point2D.h"
-#include "Point3D.h"
 #include "FileHandler.h"
+#include "datacontainer.h"
 // What about using namespace std; ?!?!?!?!?!?!?!?
 
 //Bad practice!!
@@ -71,20 +70,42 @@ int main()
     clock_t start;
     start = clock();
 
+    dataContainer data;
+
     std::cout << "Bitte Dateinamen eingeben: ";
-    std::string datafile;
-    std::getline(std::cin, datafile);
-    FileHandler fileHandler(datafile);
-	if (!fileHandler.exists()) {
+    std::string dataFileName;
+    std::getline(std::cin, dataFileName);
+
+    //schneller debuggen, einfach enter
+    if (dataFileName == "") dataFileName = "test1.csv";
+
+
+    FileHandler dataFile(dataFileName);
+	if (!dataFile.exists()) {
 		std::cout << "Datei existiert nicht. Bitte erneut versuchen.\n";
 		return 1;
 	};
-	dataarray = fileHandler.readCSV();
+    data.getData(dataFile);
 
+    //data.printCoordinates();
+    data.printRotMatrix();
 
     std::cout << "Configfile laden. Leer lassen falls keine Configfile geladen werden soll: ";   
-    std::string configfile;
-    std::getline(std::cin, configfile);  
+    std::string configFileName;
+    std::getline(std::cin, configFileName);
+    std::cout << configFileName;
+    if (configFileName != "") {
+        FileHandler configFile(configFileName);
+        if (!configFile.exists()) {
+            std::cout << "Datei existiert nicht. Bitte erneut versuchen.\n";
+            return 1;
+        };
+
+        data.getConfigFile(configFile);
+    }
+    else {
+        data.getConfigManual();
+    }
 
     float elapsed = (float)(clock() - start) / CLOCKS_PER_SEC;
     std::cout << "Elapsed time: " << elapsed << "\n";
