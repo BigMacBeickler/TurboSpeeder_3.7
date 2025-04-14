@@ -3,6 +3,8 @@
 #include "datacontainer.h"
 #include <iomanip>
 
+
+
 dataContainer::dataContainer(void)
 {
 }
@@ -13,7 +15,9 @@ bool dataContainer::getData(FileHandler &file)
 {
 	std::string wholeDataset;
 	wholeDataset = file.read();
-	std::vector converted = stringToFloatVector(wholeDataset);
+
+	//std::vector converted = stringToFloatVector(wholeDataset);
+	std::vector converted = stringToNumber<float>(wholeDataset);
 
 	size_t blockSize = 1 + 3 + 9; //Zusammensetzung eines Datensatzes
 	
@@ -138,10 +142,25 @@ void dataContainer::printRotMatrix() const
 	}
 }
 
+/*
 //String in Floatvector umwandeln
 std::vector<float> dataContainer::stringToFloatVector(const std::string& str) 
 {
 	std::vector<float> result;
+	std::istringstream iss(str);
+	float value;
+
+	while (iss >> value) {
+		result.push_back(value);
+	}
+	return result;
+}
+*/
+
+// Transform String to whatever, muahhaaha!! 
+template <typename T>
+std::vector<T> dataContainer::stringToNumber(const std::string& str) {
+	std::vector<T> result;
 	std::istringstream iss(str);
 	float value;
 

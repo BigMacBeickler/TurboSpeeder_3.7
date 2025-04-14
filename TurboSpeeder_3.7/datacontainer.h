@@ -37,6 +37,8 @@ class dataContainer
 		std::vector<dataPoint> dataField;
 		std::vector<float> stringToFloatVector(const std::string& str);
 		configClass config;
+		template<typename T>
+		std::vector<T> stringToNumber(const std::string& str);
 };
 
 
