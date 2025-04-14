@@ -2,6 +2,10 @@
 #include <sstream>
 #include "datacontainer.h"
 #include <iomanip>
+#define timeSIZE 1
+#define datapointSIZE 3
+#define rotMatrixSIZE 9
+
 
 dataContainer::dataContainer(void)
 {
@@ -15,7 +19,7 @@ bool dataContainer::getData(FileHandler &file)
 	wholeDataset = file.read();
 	std::vector converted = stringToFloatVector(wholeDataset);
 
-	size_t blockSize = 1 + 3 + 9; //Zusammensetzung eines Datensatzes
+	size_t blockSize = timeSIZE + datapointSIZE + rotMatrixSIZE; //Zusammensetzung eines Datensatzes || Zeitwert + 3 Koordinaten + 9 Rotationsmatrixwerte
 	
 	try {
 		if (converted.size() % blockSize != 0) {
