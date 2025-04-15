@@ -30,6 +30,13 @@ bool FileHandler::write(const std::string& content) const {
 //    return true;
 //}
 
+/**
+ * Reads the entire content of the file specified by the 'filename' member.
+ *
+ * @return A string containing the full content of the file.
+ *         If the file cannot be opened, returns "Fehler".
+ */
+
 std::string FileHandler::read() const {
     std::ifstream file(filename);
     if (!file.is_open()) return "Fehler";

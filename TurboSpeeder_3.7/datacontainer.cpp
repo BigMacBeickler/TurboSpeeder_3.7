@@ -10,6 +10,25 @@ dataContainer::dataContainer(void)
 }
 
 
+/**
+ * Reads and parses numerical data from a file into the internal data structure.
+ *
+ * @param [in] file A reference to a FileHandler object used to read the raw data as a string.
+ * @return True if data is successfully parsed and loaded; false if the data format is invalid.
+ *
+ * @details
+ * The function performs the following steps:
+ * - Reads the entire content of the file into a string.
+ * - Converts the string into a vector of floats using `stringToNumber<float>()`.
+ * - Verifies that the number of floats is a multiple of the expected block size (13 values per dataset).
+ * - Parses each block into a `dataPoint` struct consisting of:
+ *   - 1 time value
+ *   - 3 position values (x, y, z)
+ *   - 9 rotation matrix values
+ * - Adds each parsed `dataPoint` to the `dataField` vector.
+ * - Outputs the number of datasets successfully read.
+ */
+
 // wie bekomm ich am besten die daten aus dem String in den vektor?
 bool dataContainer::getData(FileHandler &file)
 {
@@ -27,7 +46,7 @@ bool dataContainer::getData(FileHandler &file)
 		}
 	}
 	catch(std::string str) {
-		std::cout << str << " \n";
+		std::cout << str << std::endl;
 		return false;
 	}
 
@@ -42,7 +61,7 @@ bool dataContainer::getData(FileHandler &file)
 		}
 		this->dataField.push_back(dp);
 	}
-	std::cout << this->dataField.size() << "\n";
+	std::cout << "Read " << this->dataField.size() << " datasets " << std::endl;
 	return true;
 }
 
@@ -75,35 +94,35 @@ bool dataContainer::getConfigManual()
 	try {
 		this->config.movingAverageRange = std::stoi(movingAverageString);
 	}
-	catch (std::invalid_argument) {
-		std::cout << "Das war keine Zahl\n\n";
+	catch (std::invalid_argument const& inv) {
+		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
 		return false;
 	}
-	std::cout << this->config.movingAverageRange << "\n";
+	std::cout << this->config.movingAverageRange << std::endl;
 
-	std::cout << "Toleranz des Douglas-Peucker-Filters angeben. \n";
+	std::cout << "Toleranz des Douglas-Peucker-Filters angeben." << std::endl;
 	std::string douglasPeuckerString;
 	std::getline(std::cin, douglasPeuckerString);
 	try {
 		this->config.douglasPeuckerTolerance = std::stoi(douglasPeuckerString);
 	}
-	catch (std::invalid_argument) {
-		std::cout << "Das war keine Zahl";
+	catch (std::invalid_argument const& inv) {
+		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
 		return false;
 	}
-	std::cout << this->config.douglasPeuckerTolerance << "\n";
+	std::cout << this->config.douglasPeuckerTolerance << std::endl;
 
-	std::cout << "Weite des gleitenden Mittelwertes angeben. \n";
+	std::cout << "Weite des gleitenden Mittelwertes angeben." << std::endl;
 	std::string leichtzuersetzen;
 	std::getline(std::cin, leichtzuersetzen);
 	try {
 		this->config.vlleinszuviel = std::stoi(leichtzuersetzen);
 	}
-	catch (std::invalid_argument) {
-		std::cout << "Das war keine Zahl";
+	catch (std::invalid_argument const& inv) {
+		std::cout << "Das war keine Zahl " << inv.what() << std::endl;
 		return false;
 	}
-	std::cout << this->config.vlleinszuviel << "\n";
+	std::cout << this->config.vlleinszuviel << std::endl;
 	return true;
 }
 
@@ -125,7 +144,7 @@ void dataContainer::printCoordinates() const
 }
 
 //const because only read, no write
-// a bit ugly
+// a bit ugly :3
 void dataContainer::printRotMatrix() const
 {
 	std::cout << std::fixed << std::setprecision(6);
@@ -158,14 +177,33 @@ std::vector<float> dataContainer::stringToFloatVector(const std::string& str)
 */
 
 // Transform String to whatever, muahhaaha!! 
+/* @brief Template function to convert whitespace-seperated String to vector of format T
+* 
+* @Tparam T type of data
+* @param [in]	str		const string with data to converse
+* @return result verctor with converted data or empty vector if an io error occured
+* 
+* @detail
+* tries to stream string in valie of T, throws failbit if io error occurs (e.g. letter instead of number)
+* catches failbit and cancels the operation
+* returns result vector
+*/
 template <typename T>
 std::vector<T> dataContainer::stringToNumber(const std::string& str) {
 	std::vector<T> result;
 	std::istringstream iss(str);
+	iss.exceptions(std::istringstream::failbit);
 	float value;
-
-	while (iss >> value) {
-		result.push_back(value);
+	
+	try {
+		while (iss >> value) {
+			result.push_back(value);
+		}
+	}
+	catch (const std::exception& e) {// catches the failbit that was set from the iss stream operation
+		std::cerr << "Wrong format " << e.what() << std::endl;//e.what() shows the exact error that was set
+		result.clear();
+		return result;
 	}
 	return result;
 }
