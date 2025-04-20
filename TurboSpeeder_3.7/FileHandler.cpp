@@ -5,6 +5,7 @@
 #include <vector>
 #include "FileHandler.h"
 
+
 namespace fs = std::filesystem;
 
 FileHandler::FileHandler(const std::string& fname) : filename(fname) {}
@@ -28,6 +29,13 @@ bool FileHandler::write(const std::string& content) const {
 //    file.close();
 //    return true;
 //}
+
+/**
+ * Reads the entire content of the file specified by the 'filename' member.
+ *
+ * @return A string containing the full content of the file.
+ *         If the file cannot be opened, returns "Fehler".
+ */
 
 std::string FileHandler::read() const {
     std::ifstream file(filename);

@@ -24,7 +24,7 @@ B1
 B2
 C1
 C2
-
+ this is test!!!
 
 typdef struct {
  float Datapoint 1;
@@ -59,10 +59,6 @@ Everything works fine, and you can call Blah() from Foo and Quux() from Bar with
 
 If you had used foo::Blah() and bar::Quux(), then the introduction of foo::Quux() would have been a non-event.
 */
-
-
-
-std::valarray<float> dataarray;
 
 
 int main()
