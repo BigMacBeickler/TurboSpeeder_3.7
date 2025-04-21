@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "FileHandler.h"
+#include "configContainer.h"
 
 struct dataPoint
 {
@@ -11,14 +12,14 @@ public:
 	float rotMatrix[9];
 };
 
-struct configClass
-{
-public:
-	std::string name;
-	int movingAverageRange;
-	int douglasPeuckerTolerance;
-	int vlleinszuviel;
-};
+//struct configClass
+//{
+//public:
+//	std::string name;
+//	int movingAverageRange;
+//	int douglasPeuckerTolerance;
+//	int vlleinszuviel;
+//};
 
 class dataContainer
 {
@@ -26,9 +27,9 @@ class dataContainer
 		dataContainer(void);
 		bool getData(FileHandler& file);
 		bool deleteEntry(const int n);
-		bool getConfigFile(FileHandler& file);
-		bool getConfigManual();
-		bool saveConfig();
+		//bool getConfigFile(FileHandler& file);
+		//bool getConfigManual();
+		//bool saveConfig();
 		void printCoordinates() const;
 		void printRotMatrix() const;
 		~dataContainer(void);
@@ -36,7 +37,7 @@ class dataContainer
 	private:
 		std::vector<dataPoint> dataField;
 		std::vector<float> stringToFloatVector(const std::string& str);
-		configClass config;
+		ConfigContainer config;
 		template<typename T>
 		std::vector<T> stringToNumber(const std::string& str);
 };

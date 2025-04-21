@@ -128,19 +128,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="configcontainer.cpp" />
     <ClCompile Include="datacontainer.cpp" />
     <ClCompile Include="FileHandler.cpp" />
-    <ClCompile Include="Line2D.cpp" />
-    <ClCompile Include="Point2D.cpp" />
-    <ClCompile Include="Point3D.cpp" />
     <ClCompile Include="TurboSpeeder_3.7.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="configcontainer.h" />
     <ClInclude Include="datacontainer.h" />
     <ClInclude Include="FileHandler.h" />
-    <ClInclude Include="Line2D.h" />
-    <ClInclude Include="Point2D.h" />
-    <ClInclude Include="Point3D.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

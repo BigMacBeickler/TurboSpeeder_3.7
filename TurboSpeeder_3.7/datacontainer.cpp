@@ -80,56 +80,58 @@ bool dataContainer::deleteEntry(const int n){
 	return true;
 }
 
-bool dataContainer::getConfigFile(FileHandler& file)
-{
-	std::cout << "getconfig!\n";
-	return true;
-}
+//bool dataContainer::getConfigFile(FileHandler& file)
+//{
+//	std::cout << "getconfig!\n";
+//	return true;
+//}
 
-bool dataContainer::getConfigManual()
-{
-	std::cout << "Weite des gleitenden Mittelwertes angeben. \n";
-	std::string movingAverageString;
-	std::getline(std::cin, movingAverageString);
-	try {
-		this->config.movingAverageRange = std::stoi(movingAverageString);
-	}
-	catch (std::invalid_argument const& inv) {
-		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
-		return false;
-	}
-	std::cout << this->config.movingAverageRange << std::endl;
+//Moved
 
-	std::cout << "Toleranz des Douglas-Peucker-Filters angeben." << std::endl;
-	std::string douglasPeuckerString;
-	std::getline(std::cin, douglasPeuckerString);
-	try {
-		this->config.douglasPeuckerTolerance = std::stoi(douglasPeuckerString);
-	}
-	catch (std::invalid_argument const& inv) {
-		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
-		return false;
-	}
-	std::cout << this->config.douglasPeuckerTolerance << std::endl;
+//bool dataContainer::getConfigManual()
+//{
+//	std::cout << "Weite des gleitenden Mittelwertes angeben. \n";
+//	std::string movingAverageString;
+//	std::getline(std::cin, movingAverageString);
+//	try {
+//		this->config.movingAverageRange = std::stoi(movingAverageString);
+//	}
+//	catch (std::invalid_argument const& inv) {
+//		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
+//		return false;
+//	}
+//	std::cout << this->config.movingAverageRange << std::endl;
+//
+//	std::cout << "Toleranz des Douglas-Peucker-Filters angeben." << std::endl;
+//	std::string douglasPeuckerString;
+//	std::getline(std::cin, douglasPeuckerString);
+//	try {
+//		this->config.douglasPeuckerTolerance = std::stoi(douglasPeuckerString);
+//	}
+//	catch (std::invalid_argument const& inv) {
+//		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
+//		return false;
+//	}
+//	std::cout << this->config.douglasPeuckerTolerance << std::endl;
+//
+//	std::cout << "Weite des gleitenden Mittelwertes angeben." << std::endl;
+//	std::string leichtzuersetzen;
+//	std::getline(std::cin, leichtzuersetzen);
+//	try {
+//		this->config.vlleinszuviel = std::stoi(leichtzuersetzen);
+//	}
+//	catch (std::invalid_argument const& inv) {
+//		std::cout << "Das war keine Zahl " << inv.what() << std::endl;
+//		return false;
+//	}
+//	std::cout << this->config.vlleinszuviel << std::endl;
+//	return true;
+//}
 
-	std::cout << "Weite des gleitenden Mittelwertes angeben." << std::endl;
-	std::string leichtzuersetzen;
-	std::getline(std::cin, leichtzuersetzen);
-	try {
-		this->config.vlleinszuviel = std::stoi(leichtzuersetzen);
-	}
-	catch (std::invalid_argument const& inv) {
-		std::cout << "Das war keine Zahl " << inv.what() << std::endl;
-		return false;
-	}
-	std::cout << this->config.vlleinszuviel << std::endl;
-	return true;
-}
-
-bool dataContainer::saveConfig()
-{
-	return false;
-}
+//bool dataContainer::saveConfig()
+//{
+//	return false;
+//}
 
 //const because only read, no write
 void dataContainer::printCoordinates() const
@@ -188,6 +190,7 @@ std::vector<float> dataContainer::stringToFloatVector(const std::string& str)
 * catches failbit and cancels the operation
 * returns result vector
 */
+
 template <typename T>
 std::vector<T> dataContainer::stringToNumber(const std::string& str) {
 	std::vector<T> result;
