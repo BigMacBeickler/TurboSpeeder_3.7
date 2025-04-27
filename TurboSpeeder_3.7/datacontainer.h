@@ -26,6 +26,7 @@ class dataContainer
 	public:
 		dataContainer(void);
 		bool getData(FileHandler& file);
+		bool averageFilter(const int n);
 		bool deleteEntry(const int n);
 		//bool getConfigFile(FileHandler& file);
 		//bool getConfigManual();

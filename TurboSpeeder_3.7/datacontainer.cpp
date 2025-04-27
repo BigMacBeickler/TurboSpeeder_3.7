@@ -84,6 +84,29 @@ bool dataContainer::deleteEntry(const int n){
 	return true;
 }
 
+bool dataContainer::averageFilter(const int n)
+{
+	if (this->dataField.size() < n || n == 0) {
+		std::cout << "Entry Invalid.\n";
+		return false;
+	}
+	for (size_t i = 0; i < this->dataField.size() - n; ++i) {
+		float sumX = 0, sumY = 0, sumZ = 0;
+		for (int j = 0; j < n; ++j) {
+			sumX += this->dataField[i + j].x;
+			sumY += this->dataField[i + j].y;
+			sumZ += this->dataField[i + j].z;
+		}
+		this->dataField[i].x = sumX / n;
+		this->dataField[i].y = sumY / n;
+		this->dataField[i].z = sumZ / n;
+	}
+	return true;
+}
+
+
+
+
 //bool dataContainer::getConfigFile(FileHandler& file)
 //{
 //	std::cout << "getconfig!\n";
