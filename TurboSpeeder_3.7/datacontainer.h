@@ -21,10 +21,10 @@ public:
 //	int vlleinszuviel;
 //};
 
-class dataContainer
+class DataContainer
 {
 	public:
-		dataContainer(void);
+		DataContainer(void);
 		bool getData(FileHandler& file);
 		bool averageFilter(const int n);
 		bool deleteEntry(const int n);
@@ -33,7 +33,7 @@ class dataContainer
 		//bool saveConfig();
 		void printCoordinates() const;
 		void printRotMatrix() const;
-		~dataContainer(void);
+		~DataContainer(void);
 
 	private:
 		std::vector<dataPoint> dataField;

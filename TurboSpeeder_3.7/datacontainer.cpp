@@ -1,6 +1,6 @@
 #include <iostream>
 #include <sstream>
-#include "datacontainer.h"
+#include "DataContainer.h"
 #include <iomanip>
 #define timeSIZE 1
 #define datapointSIZE 3
@@ -9,7 +9,7 @@
 
 
 
-dataContainer::dataContainer(void)
+DataContainer::DataContainer(void)
 {
 }
 
@@ -34,7 +34,7 @@ dataContainer::dataContainer(void)
  */
 
 // wie bekomm ich am besten die daten aus dem String in den vektor?
-bool dataContainer::getData(FileHandler &file)
+bool DataContainer::getData(FileHandler &file)
 {
 	std::string wholeDataset;
 	wholeDataset = file.read();
@@ -69,7 +69,7 @@ bool dataContainer::getData(FileHandler &file)
 	return true;
 }
 
-bool dataContainer::deleteEntry(const int n){
+bool DataContainer::deleteEntry(const int n){
 	try {
 		if (this->dataField.begin() >= this->dataField.end()) {
 			throw("It´s emptyyyyyyyy");
@@ -84,7 +84,7 @@ bool dataContainer::deleteEntry(const int n){
 	return true;
 }
 
-bool dataContainer::averageFilter(const int n)
+bool DataContainer::averageFilter(const int n)
 {
 	if (this->dataField.size() < n || n == 0) {
 		std::cout << "Entry Invalid.\n";
@@ -107,7 +107,7 @@ bool dataContainer::averageFilter(const int n)
 
 
 
-//bool dataContainer::getConfigFile(FileHandler& file)
+//bool DataContainer::getConfigFile(FileHandler& file)
 //{
 //	std::cout << "getconfig!\n";
 //	return true;
@@ -115,7 +115,7 @@ bool dataContainer::averageFilter(const int n)
 
 //Moved
 
-//bool dataContainer::getConfigManual()
+//bool DataContainer::getConfigManual()
 //{
 //	std::cout << "Weite des gleitenden Mittelwertes angeben. \n";
 //	std::string movingAverageString;
@@ -155,13 +155,13 @@ bool dataContainer::averageFilter(const int n)
 //	return true;
 //}
 
-//bool dataContainer::saveConfig()
+//bool DataContainer::saveConfig()
 //{
 //	return false;
 //}
 
 //const because only read, no write
-void dataContainer::printCoordinates() const
+void DataContainer::printCoordinates() const
 {
 	std::cout << std::fixed << std::setprecision(6);
 	for (size_t i = 0; i < dataField.size(); i++) {
@@ -174,7 +174,7 @@ void dataContainer::printCoordinates() const
 
 //const because only read, no write
 // a bit ugly :3
-void dataContainer::printRotMatrix() const
+void DataContainer::printRotMatrix() const
 {
 	std::cout << std::fixed << std::setprecision(6);
 	for (size_t i = 0; i < dataField.size(); i++) {
@@ -192,7 +192,7 @@ void dataContainer::printRotMatrix() const
 
 /*
 //String in Floatvector umwandeln
-std::vector<float> dataContainer::stringToFloatVector(const std::string& str) 
+std::vector<float> DataContainer::stringToFloatVector(const std::string& str) 
 {
 	std::vector<float> result;
 	std::istringstream iss(str);
@@ -219,7 +219,7 @@ std::vector<float> dataContainer::stringToFloatVector(const std::string& str)
 */
 
 template <typename T>
-std::vector<T> dataContainer::stringToNumber(const std::string& str) {
+std::vector<T> DataContainer::stringToNumber(const std::string& str) {
 	std::vector<T> result;
 	std::istringstream iss(str);
 	iss.exceptions(std::istringstream::failbit);
@@ -238,6 +238,6 @@ std::vector<T> dataContainer::stringToNumber(const std::string& str) {
 	return result;
 }
 
-dataContainer::~dataContainer(void)
+DataContainer::~DataContainer(void)
 {
 }
