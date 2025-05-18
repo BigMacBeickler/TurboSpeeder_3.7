@@ -84,8 +84,10 @@ int main()
 	};
     data.getData(dataFile);
 
+
     //data.printCoordinates();
     data.printRotMatrix();
+
 
     std::cout << "Configfile laden. Leer lassen falls keine Configfile geladen werden soll: ";   
     std::string configFileName;

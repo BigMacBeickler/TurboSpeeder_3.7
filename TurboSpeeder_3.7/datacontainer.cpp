@@ -105,61 +105,6 @@ bool DataContainer::averageFilter(const int n)
 }
 
 
-
-
-//bool DataContainer::getConfigFile(FileHandler& file)
-//{
-//	std::cout << "getconfig!\n";
-//	return true;
-//}
-
-//Moved
-
-//bool DataContainer::getConfigManual()
-//{
-//	std::cout << "Weite des gleitenden Mittelwertes angeben. \n";
-//	std::string movingAverageString;
-//	std::getline(std::cin, movingAverageString);
-//	try {
-//		this->config.movingAverageRange = std::stoi(movingAverageString);
-//	}
-//	catch (std::invalid_argument const& inv) {
-//		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
-//		return false;
-//	}
-//	std::cout << this->config.movingAverageRange << std::endl;
-//
-//	std::cout << "Toleranz des Douglas-Peucker-Filters angeben." << std::endl;
-//	std::string douglasPeuckerString;
-//	std::getline(std::cin, douglasPeuckerString);
-//	try {
-//		this->config.douglasPeuckerTolerance = std::stoi(douglasPeuckerString);
-//	}
-//	catch (std::invalid_argument const& inv) {
-//		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
-//		return false;
-//	}
-//	std::cout << this->config.douglasPeuckerTolerance << std::endl;
-//
-//	std::cout << "Weite des gleitenden Mittelwertes angeben." << std::endl;
-//	std::string leichtzuersetzen;
-//	std::getline(std::cin, leichtzuersetzen);
-//	try {
-//		this->config.vlleinszuviel = std::stoi(leichtzuersetzen);
-//	}
-//	catch (std::invalid_argument const& inv) {
-//		std::cout << "Das war keine Zahl " << inv.what() << std::endl;
-//		return false;
-//	}
-//	std::cout << this->config.vlleinszuviel << std::endl;
-//	return true;
-//}
-
-//bool DataContainer::saveConfig()
-//{
-//	return false;
-//}
-
 //const because only read, no write
 void DataContainer::printCoordinates() const
 {
@@ -190,7 +135,7 @@ void DataContainer::printRotMatrix() const
 	}
 }
 
-/*
+
 //String in Floatvector umwandeln
 std::vector<float> DataContainer::stringToFloatVector(const std::string& str) 
 {
@@ -203,7 +148,7 @@ std::vector<float> DataContainer::stringToFloatVector(const std::string& str)
 	}
 	return result;
 }
-*/
+
 
 // Transform String to whatever, muahhaaha!! 
 /* @brief Template function to convert whitespace-seperated String to vector of format T
@@ -222,19 +167,19 @@ template <typename T>
 std::vector<T> DataContainer::stringToNumber(const std::string& str) {
 	std::vector<T> result;
 	std::istringstream iss(str);
-	iss.exceptions(std::istringstream::failbit);
+	//bhiss.exceptions(std::istringstream::failbit);
 	float value;
 	
-	try {
+//	try {
 		while (iss >> value) {
 			result.push_back(value);
 		}
-	}
-	catch (const std::exception& e) {// catches the failbit that was set from the iss stream operation
-		std::cerr << "Wrong format " << e.what() << std::endl;//e.what() shows the exact error that was set
-		result.clear();
-		return result;
-	}
+//	}
+	//catch (const std::exception& e) {// catches the failbit that was set from the iss stream operation
+	//	std::cerr << "Wrong format " << e.what() << std::endl;//e.what() shows the exact error that was set
+	//	result.clear();
+	//	return result;
+	//}
 	return result;
 }
 
