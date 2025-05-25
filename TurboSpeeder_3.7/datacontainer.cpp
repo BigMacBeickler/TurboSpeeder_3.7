@@ -188,6 +188,8 @@ std::vector<float> dataContainer::stringToFloatVector(const std::string& str)
 * catches failbit and cancels the operation
 * returns result vector
 */
+
+
 template <typename T>
 std::vector<T> dataContainer::stringToNumber(const std::string& str) {
 	std::vector<T> result;
