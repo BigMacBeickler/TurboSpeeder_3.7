@@ -1,11 +1,15 @@
 #include <iostream>
 #include <sstream>
-#include "datacontainer.h"
+#include "DataContainer.h"
 #include <iomanip>
+#define timeSIZE 1
+#define datapointSIZE 3
+#define rotMatrixSIZE 9
 
 
 
-dataContainer::dataContainer(void)
+
+DataContainer::DataContainer(void)
 {
 }
 
@@ -30,7 +34,7 @@ dataContainer::dataContainer(void)
  */
 
 // wie bekomm ich am besten die daten aus dem String in den vektor?
-bool dataContainer::getData(FileHandler &file)
+bool DataContainer::getData(FileHandler &file)
 {
 	std::string wholeDataset;
 	wholeDataset = file.read();
@@ -38,7 +42,7 @@ bool dataContainer::getData(FileHandler &file)
 	//std::vector converted = stringToFloatVector(wholeDataset);
 	std::vector converted = stringToNumber<float>(wholeDataset);
 
-	size_t blockSize = 1 + 3 + 9; //Zusammensetzung eines Datensatzes
+	size_t blockSize = timeSIZE + datapointSIZE + rotMatrixSIZE; //Zusammensetzung eines Datensatzes || Zeitwert + 3 Koordinaten + 9 Rotationsmatrixwerte
 	
 	try {
 		if (converted.size() % blockSize != 0) {
@@ -65,7 +69,7 @@ bool dataContainer::getData(FileHandler &file)
 	return true;
 }
 
-bool dataContainer::deleteEntry(const int n){
+bool DataContainer::deleteEntry(const int n){
 	try {
 		if (this->dataField.begin() >= this->dataField.end()) {
 			throw("It´s emptyyyyyyyy");
@@ -80,59 +84,29 @@ bool dataContainer::deleteEntry(const int n){
 	return true;
 }
 
-bool dataContainer::getConfigFile(FileHandler& file)
+bool DataContainer::averageFilter(const int n)
 {
-	std::cout << "getconfig!\n";
+	if (this->dataField.size() < n || n == 0) {
+		std::cout << "Entry Invalid.\n";
+		return false;
+	}
+	for (size_t i = 0; i < this->dataField.size() - n; ++i) {
+		float sumX = 0, sumY = 0, sumZ = 0;
+		for (int j = 0; j < n; ++j) {
+			sumX += this->dataField[i + j].x;
+			sumY += this->dataField[i + j].y;
+			sumZ += this->dataField[i + j].z;
+		}
+		this->dataField[i].x = sumX / n;
+		this->dataField[i].y = sumY / n;
+		this->dataField[i].z = sumZ / n;
+	}
 	return true;
 }
 
-bool dataContainer::getConfigManual()
-{
-	std::cout << "Weite des gleitenden Mittelwertes angeben. \n";
-	std::string movingAverageString;
-	std::getline(std::cin, movingAverageString);
-	try {
-		this->config.movingAverageRange = std::stoi(movingAverageString);
-	}
-	catch (std::invalid_argument const& inv) {
-		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
-		return false;
-	}
-	std::cout << this->config.movingAverageRange << std::endl;
-
-	std::cout << "Toleranz des Douglas-Peucker-Filters angeben." << std::endl;
-	std::string douglasPeuckerString;
-	std::getline(std::cin, douglasPeuckerString);
-	try {
-		this->config.douglasPeuckerTolerance = std::stoi(douglasPeuckerString);
-	}
-	catch (std::invalid_argument const& inv) {
-		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
-		return false;
-	}
-	std::cout << this->config.douglasPeuckerTolerance << std::endl;
-
-	std::cout << "Weite des gleitenden Mittelwertes angeben." << std::endl;
-	std::string leichtzuersetzen;
-	std::getline(std::cin, leichtzuersetzen);
-	try {
-		this->config.vlleinszuviel = std::stoi(leichtzuersetzen);
-	}
-	catch (std::invalid_argument const& inv) {
-		std::cout << "Das war keine Zahl " << inv.what() << std::endl;
-		return false;
-	}
-	std::cout << this->config.vlleinszuviel << std::endl;
-	return true;
-}
-
-bool dataContainer::saveConfig()
-{
-	return false;
-}
 
 //const because only read, no write
-void dataContainer::printCoordinates() const
+void DataContainer::printCoordinates() const
 {
 	std::cout << std::fixed << std::setprecision(6);
 	for (size_t i = 0; i < dataField.size(); i++) {
@@ -145,7 +119,7 @@ void dataContainer::printCoordinates() const
 
 //const because only read, no write
 // a bit ugly :3
-void dataContainer::printRotMatrix() const
+void DataContainer::printRotMatrix() const
 {
 	std::cout << std::fixed << std::setprecision(6);
 	for (size_t i = 0; i < dataField.size(); i++) {
@@ -161,9 +135,9 @@ void dataContainer::printRotMatrix() const
 	}
 }
 
-/*
+
 //String in Floatvector umwandeln
-std::vector<float> dataContainer::stringToFloatVector(const std::string& str) 
+std::vector<float> DataContainer::stringToFloatVector(const std::string& str) 
 {
 	std::vector<float> result;
 	std::istringstream iss(str);
@@ -174,7 +148,7 @@ std::vector<float> dataContainer::stringToFloatVector(const std::string& str)
 	}
 	return result;
 }
-*/
+
 
 // Transform String to whatever, muahhaaha!! 
 /* @brief Template function to convert whitespace-seperated String to vector of format T
@@ -189,27 +163,26 @@ std::vector<float> dataContainer::stringToFloatVector(const std::string& str)
 * returns result vector
 */
 
-
 template <typename T>
-std::vector<T> dataContainer::stringToNumber(const std::string& str) {
+std::vector<T> DataContainer::stringToNumber(const std::string& str) {
 	std::vector<T> result;
 	std::istringstream iss(str);
-	iss.exceptions(std::istringstream::failbit);
+	//bhiss.exceptions(std::istringstream::failbit);
 	float value;
 	
-	try {
+//	try {
 		while (iss >> value) {
 			result.push_back(value);
 		}
-	}
-	catch (const std::exception& e) {// catches the failbit that was set from the iss stream operation
-		std::cerr << "Wrong format " << e.what() << std::endl;//e.what() shows the exact error that was set
-		result.clear();
-		return result;
-	}
+//	}
+	//catch (const std::exception& e) {// catches the failbit that was set from the iss stream operation
+	//	std::cerr << "Wrong format " << e.what() << std::endl;//e.what() shows the exact error that was set
+	//	result.clear();
+	//	return result;
+	//}
 	return result;
 }
 
-dataContainer::~dataContainer(void)
+DataContainer::~DataContainer(void)
 {
 }

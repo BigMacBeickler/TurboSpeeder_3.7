@@ -21,16 +21,10 @@
     <ClCompile Include="FileHandler.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Point2D.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Point3D.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Line2D.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="datacontainer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="configcontainer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,19 +32,13 @@
     <ClInclude Include="FileHandler.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Point2D.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Point3D.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Line2D.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="datacontainer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="configcontainer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

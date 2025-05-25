@@ -43,7 +43,7 @@ aDataRow SomeData[numRows];
 #include <ctime>
 #include <string>
 #include "FileHandler.h"
-#include "datacontainer.h"
+#include "DataContainer.h"
 // What about using namespace std; ?!?!?!?!?!?!?!?
 
 //Bad practice!!
@@ -66,7 +66,8 @@ int main()
     clock_t start;
     start = clock();
 
-    dataContainer data;
+    ConfigContainer config;
+    DataContainer data;
 
     std::cout << "Bitte Dateinamen eingeben: ";
     std::string dataFileName;
@@ -83,8 +84,10 @@ int main()
 	};
     data.getData(dataFile);
 
+
     //data.printCoordinates();
     data.printRotMatrix();
+
 
     std::cout << "Configfile laden. Leer lassen falls keine Configfile geladen werden soll: ";   
     std::string configFileName;
@@ -97,10 +100,10 @@ int main()
             return 1;
         };
 
-        data.getConfigFile(configFile);
+        config.getConfigFromFile(configFile);
     }
     else {
-        data.getConfigManual();
+        config.getConfigManual();
     }
 
     float elapsed = (float)(clock() - start) / CLOCKS_PER_SEC;
