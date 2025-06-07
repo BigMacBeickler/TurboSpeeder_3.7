@@ -103,7 +103,7 @@ int main()
     else {
         config.getConfigManual();
     }
-
+    config.printConfig();
     float elapsed = (float)(clock() - start) / CLOCKS_PER_SEC;
     std::cout << "Elapsed time: " << elapsed << "\n";
 
