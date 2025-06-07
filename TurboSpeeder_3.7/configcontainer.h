@@ -42,6 +42,7 @@ private:
 public:
 	bool getConfigFromFile(FileHandler& file);
 	bool getConfigManual();
+	void printConfig() const;
 	bool saveConfig(std::string configname);
 
 	std::string getName() const;
