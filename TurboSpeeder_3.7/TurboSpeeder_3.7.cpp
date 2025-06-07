@@ -84,7 +84,6 @@ int main()
 	};
     data.getData(dataFile);
 
-
     //data.printCoordinates();
     data.printRotMatrix();
 
@@ -104,6 +103,12 @@ int main()
         config.getConfigManual();
     }
     config.printConfig();
+
+    data.averageFilter(config.getMovingAverageRange());
+    data.printCoordinates();
+
+
+
     float elapsed = (float)(clock() - start) / CLOCKS_PER_SEC;
     std::cout << "Elapsed time: " << elapsed << "\n";
 
