@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "FileHandler.h"
 #include "configcontainer.h"
 
@@ -6,8 +7,8 @@ bool ConfigContainer::getConfigManual()
 {
 	std::string readstring;
 
-	std::cout << "Weite des gleitenden Mittelwertes angeben. Keine Eingabe zum Überspringen \n";
 	
+	std::cout << "Weite des gleitenden Mittelwertes angeben. Keine Eingabe zum Überspringen \n";
 	std::getline(std::cin, readstring);
 	try {
 		this->iMovingAverageRange = std::stoi(readstring);
@@ -17,6 +18,7 @@ bool ConfigContainer::getConfigManual()
 		return false;
 	}
 	std::cout << this->iMovingAverageRange << std::endl;
+
 
 	std::cout << "Toleranz des Douglas-Peucker-Filters angeben. Keine Eingabe zum Überspringen" << std::endl;
 	std::getline(std::cin, readstring);
@@ -55,6 +57,61 @@ bool ConfigContainer::getConfigManual()
 //Needs to be implemented
 bool ConfigContainer::getConfigFromFile(FileHandler& file)
 {
+	std::string wholeConfigset;
+	wholeConfigset = file.read();
+
+	// Parse the string line by line
+	std::istringstream iss(wholeConfigset);
+	std::string line;
+
+	while (std::getline(iss, line)) 
+		{
+		std::istringstream lineStream(line);
+		std::string key, valueStr;
+
+		if (std::getline(lineStream, key, ':') && std::getline(lineStream, valueStr)) {
+			// Trim leading whitespace from valueStr
+			size_t start = valueStr.find_first_not_of(" \t");
+			valueStr = (start != std::string::npos) ? valueStr.substr(start) : "";
+
+			std::istringstream valueStream(valueStr);
+
+			if (key == "name") {
+				valueStream >> this->sName;
+			}
+			else if (key == "geschwindigkeitsmodus") {
+				valueStream >> this->iSpeedMode;
+			}
+			else if (key == "geschwindigkeit") {
+				valueStream >> this->fManSpeedValue;
+			}
+			else if (key == "orientierung") {
+				valueStream >> this->iOrientationMode;
+			}
+			else if (key == "blocksizemode") {
+				valueStream >> this->iBlockSize;
+			}
+			else if (key == "startpunkt") {
+				valueStream >> this->iManStartValue;
+			}
+			else if (key == "stopppunkt") {
+				valueStream >> this->iManStopValue;
+			}
+			else if (key == "betriebsart") {
+				valueStream >> e;
+			}
+			else if (key == "filterbreite") {
+				valueStream >> e;
+			}
+			else if (key == "approximation") {
+				valueStream >> e;
+			}
+			else {
+				std::cerr << "Unknown key: " << key << std::endl;
+			}
+		}
+	}
+
 	std::cout << "getconfig!\n";
 	return true;
 }

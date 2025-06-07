@@ -8,6 +8,8 @@
 
 struct ConfigContainer
 {
+
+	//(Name), Mittelwertweite, Douglas-Peucker Toleranz, Geschwindigkeitsmodus, manuelle Geschwindigkeit, Orientierungsmodus, manuelle Orientierungswerte,
 private:
 	std::string sName;
 	int iMovingAverageRange;
@@ -20,6 +22,8 @@ private:
 	int iModus;							//Modus 1 = standart; nothing more defined
 	int iManStartValue;
 	int iManStopValue;
+	
+	//test
 
 	// Private Setters
 	void setName(const std::string& name);

@@ -88,7 +88,6 @@ int main()
     //data.printCoordinates();
     data.printRotMatrix();
 
-
     std::cout << "Configfile laden. Leer lassen falls keine Configfile geladen werden soll: ";   
     std::string configFileName;
     std::getline(std::cin, configFileName);
@@ -99,7 +98,6 @@ int main()
             std::cout << "Datei existiert nicht. Bitte erneut versuchen.\n";
             return 1;
         };
-
         config.getConfigFromFile(configFile);
     }
     else {

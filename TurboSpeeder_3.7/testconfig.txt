@@ -1,0 +1,12 @@
+name: test
+geschwindigkeitsmodus: 0
+gechwindigkeit: 0.5
+orientierung: 0
+blocksize1: 1
+blocksize2: 3
+blocksize3: 9
+startpunkt: 0
+stopppunkt: 0
+betriebsart: 1
+filterbreite: 5
+approximation: 5
