@@ -128,12 +128,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="aproximation.cpp" />
     <ClCompile Include="configcontainer.cpp" />
     <ClCompile Include="datacontainer.cpp" />
     <ClCompile Include="FileHandler.cpp" />
     <ClCompile Include="TurboSpeeder_3.7.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="aproximation.h" />
     <ClInclude Include="configcontainer.h" />
     <ClInclude Include="datacontainer.h" />
     <ClInclude Include="FileHandler.h" />
