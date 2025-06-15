@@ -84,10 +84,8 @@ int main()
 	};
     data.getData(dataFile);
 
-
     //data.printCoordinates();
     data.printRotMatrix();
-
 
     std::cout << "Configfile laden. Leer lassen falls keine Configfile geladen werden soll: ";   
     std::string configFileName;
@@ -99,12 +97,17 @@ int main()
             std::cout << "Datei existiert nicht. Bitte erneut versuchen.\n";
             return 1;
         };
-
         config.getConfigFromFile(configFile);
     }
     else {
         config.getConfigManual();
     }
+    config.printConfig();
+
+    data.averageFilter(config.getMovingAverageRange());
+    data.printCoordinates();
+
+
 
     float elapsed = (float)(clock() - start) / CLOCKS_PER_SEC;
     std::cout << "Elapsed time: " << elapsed << "\n";
