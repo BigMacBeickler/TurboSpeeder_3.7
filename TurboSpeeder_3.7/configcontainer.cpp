@@ -64,13 +64,13 @@ void ConfigContainer::printConfig() const
 	std::cout << "SpeedMode " << getSpeedMode() << "\n" << std::endl;
 	std::cout << "Speed " << getManSpeedValue() << "\n" << std::endl;
 	std::cout << "Orientationmode " << getOrientationMode() << "\n" << std::endl;
-	std::cout << "Name " << getName() << "\n" << std::endl;
-	std::cout << "Name " << getName() << "\n" << std::endl;
-	std::cout << "Name " << getName() << "\n" << std::endl;
-	std::cout << "Name " << getName() << "\n" << std::endl;
-	std::cout << "Name " << getName() << "\n" << std::endl;
-	std::cout << "Name " << getName() << "\n" << std::endl;
-	std::cout << "Name " << getName() << "\n" << std::endl;
+	std::cout << "Blocksizemode " << getBlockSize() << "\n" << std::endl;
+	std::cout << "Startpunkt " << getManStartValue() << "\n" << std::endl;
+	std::cout << "Stopppunkt " << getManStopValue() << "\n" << std::endl;
+	std::cout << "Betriebsart " << getModus() << "\n" << std::endl;
+	std::cout << "Filterbreite " << getMovingAverageRange() << "\n" << std::endl;
+	std::cout << "Approximation " << getDouglasPeuckerTolerance() << "\n" << std::endl;
+	//std::cout << "Name " << getName() << "\n" << std::endl;
 }
 
 
@@ -140,6 +140,16 @@ bool ConfigContainer::getConfigFromFile(FileHandler& file)
 //Needs to be implemented
 bool ConfigContainer::saveConfig(std::string configname)
 {
+	setName(configname);
+	FileHandler saveFile(getName());
+	if (saveFile.exists() == true) {
+		std::cout << "Datei überschreiben?\n";
+		std::string answear;
+		std::cin >> answear;
+		if (answear == "yes") {
+			saveFile.writeConfig(this);
+		}
+	}
 	return false;
 }
 

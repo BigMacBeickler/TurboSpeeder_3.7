@@ -2,6 +2,7 @@
 
 #include <string>
 #include <valarray>
+#include "configcontainer.h"
 
 class FileHandler {
 private:
@@ -10,7 +11,7 @@ private:
 public:
     FileHandler(const std::string& fname);
     bool exists() const;
-    bool write(const std::string& content) const;
+    bool writeConfig(const ConfigContainer) const;
     bool append(const std::string& content) const;
     std::string read() const;
     bool remove() const;
