@@ -150,6 +150,7 @@ std::vector<float> DataContainer::stringToFloatVector(const std::string& str)
 }
 
 
+
 // Transform String to whatever, muahhaaha!! 
 /* @brief Template function to convert whitespace-seperated String to vector of format T
 * 
@@ -162,6 +163,8 @@ std::vector<float> DataContainer::stringToFloatVector(const std::string& str)
 * catches failbit and cancels the operation
 * returns result vector
 */
+
+
 
 template <typename T>
 std::vector<T> DataContainer::stringToNumber(const std::string& str) {
