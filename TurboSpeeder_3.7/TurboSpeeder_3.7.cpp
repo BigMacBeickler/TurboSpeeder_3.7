@@ -117,6 +117,11 @@ int main()
     std::cout << "Daten nach Average-Filter" << std::endl;
     data.printCoordinates();
 
+
+    data.approximateXYZ(config.getDouglasPeuckerTolerance());
+    data.printCoordinates();
+
+
     std::cout << "Konfiguration als Datei speichern?\n" << std::endl;
     std::string save;
     std::cin >> save;
@@ -126,6 +131,7 @@ int main()
         std::getline(std::cin, savename);
        // config.saveConfig(savename);
         
+
 
     }
     else if (save == "no") {

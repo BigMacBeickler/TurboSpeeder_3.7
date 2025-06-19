@@ -33,6 +33,7 @@ class DataContainer
 		//bool saveConfig();
 		void printCoordinates() const;
 		void printRotMatrix() const;
+		void approximateXYZ(float epsilon);
 		~DataContainer(void);
 
 	private:
