@@ -184,14 +184,14 @@ std::vector<T> DataContainer::stringToNumber(const std::string& str) {
 	return result;
 }
 
-void DataContainer::approximateXYZ(float epsilon) {
+void DataContainer::approximateXYZ(float DouglasPeuckerTolerance) {
 	std::vector<Point3D> originalPoints;
 	for (size_t i = 0; i < dataField.size(); ++i) {
 		originalPoints.push_back({ dataField[i].x, dataField[i].y, dataField[i].z, i });
 	}
 
 	std::vector<Point3D> simplified;
-	douglasPeuckerRecursive(originalPoints, epsilon, simplified);
+	douglasPeuckerRecursive(originalPoints, DouglasPeuckerTolerance, simplified);
 
 	std::vector<dataPoint> newData;
 	for (const auto& pt : simplified) {
@@ -199,8 +199,10 @@ void DataContainer::approximateXYZ(float epsilon) {
 	}
 
 	dataField = std::move(newData);
-
-	std::cout << "Reduziert auf " << dataField.size() << " Punkte mit Epsilon = " << epsilon << "\n";
+	std::cout << "\n\n__________________________________________________________________";
+	std::cout << "\nAusgabe der Approxiamtion:";
+	std::cout << "\n\n-> Verwendete Douglas-Peucker Toleranz = " << DouglasPeuckerTolerance;
+	std::cout << "\n-> Reduziert auf " << dataField.size() << " Punkte\n\n";
 }
 
 DataContainer::~DataContainer(void)
