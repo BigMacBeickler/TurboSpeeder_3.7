@@ -14,6 +14,24 @@ bool FileHandler::exists() const {
     return fs::exists(filename);
 }
 
+//bool FileHandler::writeConfig(const ConfigContainer& config) const {
+//    std::ofstream file(config.getName(), std::ios::out | std::ios::trunc);
+//    if (!file.is_open()) return false;
+//    file << "geschwindigkeitsmodus: " << config.getSpeedMode() << "\n";
+//    file << "geschwindigkeit: " << config.getManSpeedValue() << "\n";                   
+//    file << "orientierung " << config.getOrientationMode() << "\n";
+//    file << "blocksizemode " << config.getBlockSize() << "\n";
+//    file << "startpunkt " << config.getManStartValue() << "\n";
+//    file << "stopppunkt " << config.getManStopValue() << "\n";
+//    file << "betriebsart " << config.getModus() << "\n";
+//    file << "filterbreite " << config.getMovingAverageRange() << "\n";
+//    file << "approximation " << config.getDouglasPeuckerTolerance() << "\n";
+//    //file << content;
+//    file.close();
+//    return true;
+//}
+
+
 bool FileHandler::write(const std::string& content) const {
     std::ofstream file(filename, std::ios::out | std::ios::trunc);
     if (!file.is_open()) return false;
@@ -21,14 +39,6 @@ bool FileHandler::write(const std::string& content) const {
     file.close();
     return true;
 }
-
-//bool FileHandler::append(const std::string& content) const {
-//    std::ofstream file(filename, std::ios::out | std::ios::app);
-//    if (!file.is_open()) return false;
-//    file << content;
-//    file.close();
-//    return true;
-//}
 
 /**
  * Reads the entire content of the file specified by the 'filename' member.
@@ -45,13 +55,6 @@ std::string FileHandler::read() const {
     file.close();
     return content;
 }
-
-//bool FileHandler::remove() const {
-//    if (exists()) {
-//        return fs::remove(filename);
-//    }
-//    return false;
-//}
 
 std::string FileHandler::getFilename() const {
     return filename;
@@ -77,4 +80,19 @@ void FileHandler::setFilename(const std::string& newName) {
 //    file.close();
 //
 //    return std::valarray<float>(values.data(), values.size());
+//}
+
+//bool FileHandler::append(const std::string& content) const {
+//    std::ofstream file(filename, std::ios::out | std::ios::app);
+//    if (!file.is_open()) return false;
+//    file << content;
+//    file.close();
+//    return true;
+//}
+
+//bool FileHandler::remove() const {
+//    if (exists()) {
+//        return fs::remove(filename);
+//    }
+//    return false;
 //}

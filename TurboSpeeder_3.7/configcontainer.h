@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <array>
+#include "FileHandler.h"
 
 #define FLOATINGAVERAGE 4
 #define FILTER	5
@@ -18,8 +19,8 @@ private:
 	float fManSpeedValue;
 	int iOrientationMode;
 	std::array<float, 3> fManOrientationValues;		//3 datapoints x,y and z
-	int iBlockSize;						//blocksize consits of 1x timestamp, 3x space variables, 9x rotational matrix values
-	int iModus;							//Modus 1 = standart; nothing more defined
+	int iBlockSize;									//blocksize consits of 1x timestamp, 3x space variables, 9x rotational matrix values
+	int iModus;										//Modus 1 = standart; nothing more defined
 	int iManStartValue;
 	int iManStopValue;
 	
@@ -43,7 +44,7 @@ public:
 	bool getConfigFromFile(FileHandler& file);
 	bool getConfigManual();
 	void printConfig() const;
-	bool saveConfig(std::string configname);
+//	bool saveConfig(std::string configname);
 
 	std::string getName() const;
 	int getMovingAverageRange() const;

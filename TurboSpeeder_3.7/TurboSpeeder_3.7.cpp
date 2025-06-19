@@ -44,6 +44,9 @@ aDataRow SomeData[numRows];
 #include <string>
 #include "FileHandler.h"
 #include "DataContainer.h"
+#include <conio.h> //more to come
+
+
 // What about using namespace std; ?!?!?!?!?!?!?!?
 
 //Bad practice!!
@@ -83,34 +86,60 @@ int main()
 		return 1;
 	};
     data.getData(dataFile);
+    
 
-    //data.printCoordinates();
-    data.printRotMatrix();
+
+   //data.printCoordinates();
+    //data.printRotMatrix();
 
     std::cout << "Configfile laden. Leer lassen falls keine Configfile geladen werden soll: ";   
     std::string configFileName;
     std::getline(std::cin, configFileName);
+    //schneller debuggen
+    if (configFileName == "1") configFileName = "testconfig.txt";
+
     std::cout << configFileName;
     if (configFileName != "") {
-        FileHandler configFile(configFileName);
-        if (!configFile.exists()) {
-            std::cout << "Datei existiert nicht. Bitte erneut versuchen.\n";
-            return 1;
-        };
-        config.getConfigFromFile(configFile);
+    //    FileHandler configFile(configFileName);
+    //    if (!configFile.exists()) {
+    //        std::cout << "Datei existiert nicht. Bitte erneut versuchen.\n";
+    //        return 1;
+    //    };
+    //    config.getConfigFromFile(configFile);
     }
     else {
         config.getConfigManual();
     }
     config.printConfig();
 
+
     data.averageFilter(config.getMovingAverageRange());
+    std::cout << "Daten nach Average-Filter" << std::endl;
     data.printCoordinates();
+
 
     data.approximateXYZ(config.getDouglasPeuckerTolerance());
     data.printCoordinates();
 
 
+    std::cout << "Konfiguration als Datei speichern?\n" << std::endl;
+    std::string save;
+    std::cin >> save;
+    if (save == "yes") {
+        std::string savename;
+        std::cout << "Confignamen eingeben: ";
+        std::getline(std::cin, savename);
+       // config.saveConfig(savename);
+        
+
+
+    }
+    else if (save == "no") {
+
+    }
+    else {
+        std::cout << "Lern schreiben" << std::endl;
+    }
 
     float elapsed = (float)(clock() - start) / CLOCKS_PER_SEC;
     std::cout << "Elapsed time: " << elapsed << "\n";

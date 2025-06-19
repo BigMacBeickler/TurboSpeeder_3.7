@@ -37,14 +37,18 @@ DataContainer::DataContainer(void)
 // wie bekomm ich am besten die daten aus dem String in den vektor?
 bool DataContainer::getData(FileHandler &file)
 {
+
 	std::string wholeDataset;
 	wholeDataset = file.read();
 
 	//std::vector converted = stringToFloatVector(wholeDataset);
-	std::vector converted = stringToNumber<float>(wholeDataset);
+	//std::vector<float> converted = stringToNumber<float>(wholeDataset);
+	std::vector<double> converted = stringToDoubleVector(wholeDataset);
 
 	size_t blockSize = timeSIZE + datapointSIZE + rotMatrixSIZE; //Zusammensetzung eines Datensatzes || Zeitwert + 3 Koordinaten + 9 Rotationsmatrixwerte
 	
+
+	//dafuq th catch?
 	try {
 		if (converted.size() % blockSize != 0) {
 			throw("Data is incoherent");
@@ -54,7 +58,7 @@ bool DataContainer::getData(FileHandler &file)
 		std::cout << str << std::endl;
 		return false;
 	}
-
+	std::cout << std::fixed << std::setprecision(6);
 	for (size_t i = 0; i < converted.size(); i += blockSize) {
 		dataPoint dp;
 		dp.time = converted[i];
@@ -69,6 +73,10 @@ bool DataContainer::getData(FileHandler &file)
 	std::cout << "Read " << this->dataField.size() << " datasets " << std::endl;
 	return true;
 }
+
+
+
+
 
 bool DataContainer::deleteEntry(const int n){
 	try {
@@ -92,7 +100,7 @@ bool DataContainer::averageFilter(const int n)
 		return false;
 	}
 	for (size_t i = 0; i < this->dataField.size() - n; ++i) {
-		float sumX = 0, sumY = 0, sumZ = 0;
+		double sumX = 0, sumY = 0, sumZ = 0;
 		for (int j = 0; j < n; ++j) {
 			sumX += this->dataField[i + j].x;
 			sumY += this->dataField[i + j].y;
@@ -110,11 +118,13 @@ bool DataContainer::averageFilter(const int n)
 void DataContainer::printCoordinates() const
 {
 	std::cout << std::fixed << std::setprecision(6);
+
 	for (size_t i = 0; i < dataField.size(); i++) {
 		std::cout << "Time: " << dataField[i].time << " ";
 		std::cout << "X: " << dataField[i].x << " ";
 		std::cout << "Y: " << dataField[i].y << " ";
 		std::cout << "Z: " << dataField[i].z << " ";
+		std::cout << std::endl;
 	}
 }
 
@@ -151,6 +161,21 @@ std::vector<float> DataContainer::stringToFloatVector(const std::string& str)
 }
 
 
+
+//String in Doublevector umwandeln
+std::vector<double> DataContainer::stringToDoubleVector(const std::string& str)
+{
+	std::vector<double> result;
+	std::istringstream iss(str);
+	double value;
+
+	while (iss >> value) {
+		result.push_back(value);
+	}
+	return result;
+}
+
+
 // Transform String to whatever, muahhaaha!! 
 /* @brief Template function to convert whitespace-seperated String to vector of format T
 * 
@@ -163,6 +188,8 @@ std::vector<float> DataContainer::stringToFloatVector(const std::string& str)
 * catches failbit and cancels the operation
 * returns result vector
 */
+
+
 
 template <typename T>
 std::vector<T> DataContainer::stringToNumber(const std::string& str) {
