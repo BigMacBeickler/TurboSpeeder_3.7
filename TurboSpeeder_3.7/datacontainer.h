@@ -34,6 +34,7 @@ class DataContainer
 		void printCoordinates() const;
 		void printRotMatrix() const;
 		void approximateXYZ(float epsilon);
+		void rotationMatrixToEulerAngels(void);
 		~DataContainer(void);
 
 	private:

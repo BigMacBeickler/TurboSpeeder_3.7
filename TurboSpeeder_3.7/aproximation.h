@@ -6,9 +6,9 @@
 
 struct Point3D {
 public:
-    float x, y, z;
+    double x, y, z;
     size_t index; // originaler Index zum Wiederaufbau
 };
 
-float perpendicularDistance(const Point3D& pt, const Point3D& lineStart, const Point3D& lineEnd);
+double perpendicularDistance(const Point3D& pt, const Point3D& lineStart, const Point3D& lineEnd);
 void douglasPeuckerRecursive(const std::vector<Point3D>& points, float epsilon, std::vector<Point3D>& result);

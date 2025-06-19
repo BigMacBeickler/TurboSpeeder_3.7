@@ -27,7 +27,7 @@ bool ConfigContainer::getConfigManual()
 	std::cout << "Toleranz des Douglas-Peucker-Filters angeben. Keine Eingabe zum Überspringen" << std::endl;
 	std::getline(std::cin, readstring);
 	try {
-		this->iDouglasPeuckerTolerance = std::stoi(readstring);
+		this->fDouglasPeuckerTolerance = std::stof(readstring);
 	}
 	catch (std::invalid_argument const& inv) {
 		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
@@ -178,8 +178,8 @@ void ConfigContainer::setMovingAverageRange(int range) {
 	iMovingAverageRange = range;
 }
 
-void ConfigContainer::setDouglasPeuckerTolerance(int tolerance) {
-	iDouglasPeuckerTolerance = tolerance;
+void ConfigContainer::setDouglasPeuckerTolerance(float tolerance) {
+	fDouglasPeuckerTolerance = tolerance;
 }
 
 void ConfigContainer::setSpeedMode(int mode) {
@@ -224,8 +224,8 @@ int ConfigContainer::getMovingAverageRange() const {
 	return iMovingAverageRange;
 }
 
-int ConfigContainer::getDouglasPeuckerTolerance() const {
-	return iDouglasPeuckerTolerance;
+float ConfigContainer::getDouglasPeuckerTolerance() const {
+	return fDouglasPeuckerTolerance;
 }
 
 int ConfigContainer::getSpeedMode() const {

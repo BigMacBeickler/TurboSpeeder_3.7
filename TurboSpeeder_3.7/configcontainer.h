@@ -14,7 +14,7 @@ struct ConfigContainer
 private:
 	std::string sName;
 	int iMovingAverageRange;
-	int iDouglasPeuckerTolerance;
+	float fDouglasPeuckerTolerance;
 	int iSpeedMode;
 	float fManSpeedValue;
 	int iOrientationMode;
@@ -29,7 +29,7 @@ private:
 	// Private Setters
 	void setName(const std::string& name);
 	void setMovingAverageRange(int range);
-	void setDouglasPeuckerTolerance(int tolerance);
+	void setDouglasPeuckerTolerance(float tolerance);
 	void setSpeedMode(int mode);
 	void setManSpeedValue(float value);
 	void setOrientationMode(int mode);
@@ -48,7 +48,7 @@ public:
 
 	std::string getName() const;
 	int getMovingAverageRange() const;
-	int getDouglasPeuckerTolerance() const;
+	float getDouglasPeuckerTolerance() const;
 	int getSpeedMode() const;
 	float getManSpeedValue() const;
 	int getOrientationMode() const;

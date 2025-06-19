@@ -143,6 +143,7 @@ void DataContainer::printRotMatrix() const
 		std::cout << "Rz1: " << dataField[i].rotMatrix[6] << " ";
 		std::cout << "Rz2: " << dataField[i].rotMatrix[7] << " ";
 		std::cout << "Rz3: " << dataField[i].rotMatrix[8] << " ";
+		std::cout << std::endl;
 	}
 }
 
@@ -196,7 +197,7 @@ std::vector<T> DataContainer::stringToNumber(const std::string& str) {
 	std::vector<T> result;
 	std::istringstream iss(str);
 	//bhiss.exceptions(std::istringstream::failbit);
-	float value;
+	T value;
 	
 //	try {
 		while (iss >> value) {
@@ -234,6 +235,54 @@ void DataContainer::approximateXYZ(float DouglasPeuckerTolerance) {
 	std::cout << "\n\n-> Verwendete Douglas-Peucker Toleranz = " << DouglasPeuckerTolerance;
 	std::cout << "\n-> Verwendete Punkte " << dataField.size() << "/" << numDatapoints << "\n\n";
 }
+
+void DataContainer::rotationMatrixToEulerAngels(void)
+{
+
+	for (auto& dp : dataField) {
+		double r00 = dp.rotMatrix[0];
+		double r01 = dp.rotMatrix[1];
+		double r02 = dp.rotMatrix[2];
+		double r10 = dp.rotMatrix[3];
+		double r11 = dp.rotMatrix[4];
+		double r12 = dp.rotMatrix[5];
+		double r20 = dp.rotMatrix[6];
+		double r21 = dp.rotMatrix[7];
+		double r22 = dp.rotMatrix[8];
+
+
+		double yaw, pitch, roll;
+
+		// Pitch (y-Achse)
+		if (r20 < 1.0f) {
+			if (20 > -1.0f) {
+				pitch = std::asin(-r20);
+				roll = std::atan2(r21, r22);
+				yaw = std::atan2(r10, r00);
+			}
+			else {
+				// r20 == -1
+				pitch = static_cast<float>(0.0);
+				roll = -std::atan2(-r12, r11);
+				yaw = 0.0f;
+			}
+		}
+		else {
+			//r20  == 1
+			pitch = -static_cast<float>(0.0);
+			roll = std::atan2(-r12, r11);
+			yaw = 0.0f;
+		}
+
+		std::setprecision(8);
+		std::cout << "Time: " << dp.time
+			<< " Yaw: " << yaw * (180.0 / 3.141592653589793238463)
+			<< " Pitch: " << pitch * (180.0 / 3.141592653589793238463)
+			<< " Roll: " << roll * (180.0 / 3.141592653589793238463) << std::endl;
+	}
+}
+
+
 
 DataContainer::~DataContainer(void)
 {

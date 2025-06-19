@@ -120,6 +120,9 @@ int main()
 
     data.approximateXYZ(config.getDouglasPeuckerTolerance());
     data.printCoordinates();
+    data.printRotMatrix();
+    
+    data.rotationMatrixToEulerAngels();
 
 
     std::cout << "Konfiguration als Datei speichern?\n" << std::endl;
