@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <array>
+#include "FileHandler.h"
 
 #define FLOATINGAVERAGE 4
 #define FILTER	5
@@ -43,7 +44,7 @@ public:
 	bool getConfigFromFile(FileHandler& file);
 	bool getConfigManual();
 	void printConfig() const;
-	bool saveConfig(std::string configname);
+//	bool saveConfig(std::string configname);
 
 	std::string getName() const;
 	int getMovingAverageRange() const;

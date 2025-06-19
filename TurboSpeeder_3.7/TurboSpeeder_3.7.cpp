@@ -86,9 +86,10 @@ int main()
 		return 1;
 	};
     data.getData(dataFile);
+    
 
 
-    //data.printCoordinates();
+   //data.printCoordinates();
     //data.printRotMatrix();
 
     std::cout << "Configfile laden. Leer lassen falls keine Configfile geladen werden soll: ";   
@@ -99,12 +100,12 @@ int main()
 
     std::cout << configFileName;
     if (configFileName != "") {
-        FileHandler configFile(configFileName);
-        if (!configFile.exists()) {
-            std::cout << "Datei existiert nicht. Bitte erneut versuchen.\n";
-            return 1;
-        };
-        config.getConfigFromFile(configFile);
+    //    FileHandler configFile(configFileName);
+    //    if (!configFile.exists()) {
+    //        std::cout << "Datei existiert nicht. Bitte erneut versuchen.\n";
+    //        return 1;
+    //    };
+    //    config.getConfigFromFile(configFile);
     }
     else {
         config.getConfigManual();
@@ -112,8 +113,9 @@ int main()
     config.printConfig();
 
 
-//    data.averageFilter(config.getMovingAverageRange());
-//    data.printCoordinates();
+    data.averageFilter(config.getMovingAverageRange());
+    std::cout << "Daten nach Average-Filter" << std::endl;
+    data.printCoordinates();
 
     std::cout << "Konfiguration als Datei speichern?\n" << std::endl;
     std::string save;
@@ -122,7 +124,7 @@ int main()
         std::string savename;
         std::cout << "Confignamen eingeben: ";
         std::getline(std::cin, savename);
-        config.saveConfig(savename);
+       // config.saveConfig(savename);
         
 
     }
