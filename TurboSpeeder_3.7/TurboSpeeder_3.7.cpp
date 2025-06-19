@@ -107,6 +107,9 @@ int main()
     data.averageFilter(config.getMovingAverageRange());
     data.printCoordinates();
 
+    data.approximateXYZ(config.getDouglasPeuckerTolerance());
+    data.printCoordinates();
+
 
 
     float elapsed = (float)(clock() - start) / CLOCKS_PER_SEC;

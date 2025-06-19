@@ -2,6 +2,7 @@
 #include <sstream>
 #include "DataContainer.h"
 #include <iomanip>
+#include "aproximation.h"
 #define timeSIZE 1
 #define datapointSIZE 3
 #define rotMatrixSIZE 9
@@ -181,6 +182,25 @@ std::vector<T> DataContainer::stringToNumber(const std::string& str) {
 	//	return result;
 	//}
 	return result;
+}
+
+void DataContainer::approximateXYZ(float epsilon) {
+	std::vector<Point3D> originalPoints;
+	for (size_t i = 0; i < dataField.size(); ++i) {
+		originalPoints.push_back({ dataField[i].x, dataField[i].y, dataField[i].z, i });
+	}
+
+	std::vector<Point3D> simplified;
+	douglasPeuckerRecursive(originalPoints, epsilon, simplified);
+
+	std::vector<dataPoint> newData;
+	for (const auto& pt : simplified) {
+		newData.push_back(dataField[pt.index]);
+	}
+
+	dataField = std::move(newData);
+
+	std::cout << "Reduziert auf " << dataField.size() << " Punkte mit Epsilon = " << epsilon << "\n";
 }
 
 DataContainer::~DataContainer(void)
