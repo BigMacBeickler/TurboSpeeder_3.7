@@ -186,7 +186,8 @@ std::vector<T> DataContainer::stringToNumber(const std::string& str) {
 
 void DataContainer::approximateXYZ(float DouglasPeuckerTolerance) {
 	std::vector<Point3D> originalPoints;
-	for (size_t i = 0; i < dataField.size(); ++i) {
+	size_t numDatapoints = dataField.size();
+	for (size_t i = 0; i < numDatapoints; ++i) {
 		originalPoints.push_back({ dataField[i].x, dataField[i].y, dataField[i].z, i });
 	}
 
@@ -199,10 +200,12 @@ void DataContainer::approximateXYZ(float DouglasPeuckerTolerance) {
 	}
 
 	dataField = std::move(newData);
+
+	//Ouput
 	std::cout << "\n\n__________________________________________________________________";
 	std::cout << "\nAusgabe der Approxiamtion:";
 	std::cout << "\n\n-> Verwendete Douglas-Peucker Toleranz = " << DouglasPeuckerTolerance;
-	std::cout << "\n-> Reduziert auf " << dataField.size() << " Punkte\n\n";
+	std::cout << "\n-> Verwendete Punkte " << dataField.size() << "/" << numDatapoints << "\n\n";
 }
 
 DataContainer::~DataContainer(void)
