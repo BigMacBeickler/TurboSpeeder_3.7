@@ -100,12 +100,12 @@ int main()
 
     std::cout << configFileName;
     if (configFileName != "") {
-    //    FileHandler configFile(configFileName);
-    //    if (!configFile.exists()) {
-    //        std::cout << "Datei existiert nicht. Bitte erneut versuchen.\n";
-    //        return 1;
-    //    };
-    //    config.getConfigFromFile(configFile);
+        FileHandler configFile(configFileName);
+        if (!configFile.exists()) {
+            std::cout << "Datei existiert nicht. Bitte erneut versuchen.\n";
+            return 1;
+        };
+        config.getConfigFromFile(configFile);
     }
     else {
         config.getConfigManual();
@@ -115,11 +115,11 @@ int main()
 
     data.averageFilter(config.getMovingAverageRange());
     std::cout << "Daten nach Average-Filter" << std::endl;
-    data.printCoordinates();
+   // data.printCoordinates();
 
 
     data.approximateXYZ(config.getDouglasPeuckerTolerance());
-    data.printCoordinates();
+    //data.printCoordinates();
     data.printRotMatrix();
     
     data.rotationMatrixToEulerAngels();

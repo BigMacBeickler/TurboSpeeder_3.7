@@ -3,10 +3,10 @@
 
 #include "configcontainer.h"
 
-bool ConfigContainer::getConfigFromFile(FileHandler& file)
-{
-	return false;
-}
+//bool ConfigContainer::getConfigFromFile(FileHandler& file)
+//{
+//	return false;
+//}
 
 bool ConfigContainer::getConfigManual()
 {
@@ -78,66 +78,66 @@ void ConfigContainer::printConfig() const
 
 
 //Needs to be implemented
-//bool ConfigContainer::getConfigFromFile(FileHandler& file)
-//{
-//	std::string wholeConfigset;
-//	wholeConfigset = file.read();
-//
-//	// Parse the string line by line
-//	std::istringstream iss(wholeConfigset);
-//	std::string line;
-//
-//	while (std::getline(iss, line)) 
-//		{
-//		std::istringstream lineStream(line);
-//		std::string key, valueStr;
-//
-//		if (std::getline(lineStream, key, ':') && std::getline(lineStream, valueStr)) {
-//			// Trim leading whitespace from valueStr
-//			size_t start = valueStr.find_first_not_of(" \t");
-//			valueStr = (start != std::string::npos) ? valueStr.substr(start) : "";
-//
-//			std::istringstream valueStream(valueStr);
-//
-//			if (key == "name") {
-//				valueStream >> this->sName;
-//			}
-//			else if (key == "geschwindigkeitsmodus") {
-//				valueStream >> this->iSpeedMode;
-//			}
-//			else if (key == "geschwindigkeit") {
-//				valueStream >> this->fManSpeedValue;
-//			}
-//			else if (key == "orientierung") {
-//				valueStream >> this->iOrientationMode;
-//			}
-//			else if (key == "blocksizemode") {
-//				valueStream >> this->iBlockSize;
-//			}
-//			else if (key == "startpunkt") {
-//				valueStream >> this->iManStartValue;
-//			}
-//			else if (key == "stopppunkt") {
-//				valueStream >> this->iManStopValue;
-//			}
-//			else if (key == "betriebsart") {
-//				valueStream >> this->iModus;
-//			}
-//			else if (key == "filterbreite") {
-//				valueStream >> this->iMovingAverageRange;
-//			}
-//			else if (key == "approximation") {
-//				valueStream >> this->iDouglasPeuckerTolerance;
-//			}
-//			else {
-//				std::cerr << "Unknown key: " << key << std::endl;
-//			}
-//		}
-//	}
-//
-//	std::cout << "got config!\n";
-//	return true;
-//}
+bool ConfigContainer::getConfigFromFile(FileHandler& file)
+{
+	std::string wholeConfigset;
+	wholeConfigset = file.read();
+
+	// Parse the string line by line
+	std::istringstream iss(wholeConfigset);
+	std::string line;
+
+	while (std::getline(iss, line)) 
+		{
+		std::istringstream lineStream(line);
+		std::string key, valueStr;
+
+		if (std::getline(lineStream, key, ':') && std::getline(lineStream, valueStr)) {
+			// Trim leading whitespace from valueStr
+			size_t start = valueStr.find_first_not_of(" \t");
+			valueStr = (start != std::string::npos) ? valueStr.substr(start) : "";
+
+			std::istringstream valueStream(valueStr);
+
+			if (key == "name") {
+				valueStream >> this->sName;
+			}
+			else if (key == "geschwindigkeitsmodus") {
+				valueStream >> this->iSpeedMode;
+			}
+			else if (key == "geschwindigkeit") {
+				valueStream >> this->fManSpeedValue;
+			}
+			else if (key == "orientierung") {
+				valueStream >> this->iOrientationMode;
+			}
+			else if (key == "blocksizemode") {
+				valueStream >> this->iBlockSize;
+			}
+			else if (key == "startpunkt") {
+				valueStream >> this->iManStartValue;
+			}
+			else if (key == "stopppunkt") {
+				valueStream >> this->iManStopValue;
+			}
+			else if (key == "betriebsart") {
+				valueStream >> this->iModus;
+			}
+			else if (key == "filterbreite") {
+				valueStream >> this->iMovingAverageRange;
+			}
+			else if (key == "approximation") {
+				valueStream >> this->fDouglasPeuckerTolerance;
+			}
+			else {
+				std::cerr << "Unknown key: " << key << std::endl;
+			}
+		}
+	}
+
+	std::cout << "got config!\n";
+	return true;
+}
 
 
 //Needs to be implemented
