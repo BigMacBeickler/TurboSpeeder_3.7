@@ -3,16 +3,10 @@
 
 #include "configcontainer.h"
 
-//bool ConfigContainer::getConfigFromFile(FileHandler& file)
-//{
-//	return false;
-//}
 
 bool ConfigContainer::getConfigManual()
 {
 	std::string readstring;
-
-	
 	std::cout << "Weite des gleitenden Mittelwertes angeben. Keine Eingabe zum Überspringen \n";
 	std::getline(std::cin, readstring);
 	try {
@@ -22,7 +16,6 @@ bool ConfigContainer::getConfigManual()
 		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
 		return false;
 	}
-
 
 	std::cout << "Toleranz des Douglas-Peucker-Filters angeben. Keine Eingabe zum Überspringen" << std::endl;
 	std::getline(std::cin, readstring);
