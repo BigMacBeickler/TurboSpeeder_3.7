@@ -2,14 +2,14 @@
 
 // TODO:
 /*
-1. Filehandler Fertig machen
+
 2. Configfile einlesen / definieren
 3. Eingelesene Daten in Struktur speichern (Struct dementsprechend erstellen...)
 4. Filter Mittelwert (Einstellbare länge Asymmetrisch) NUR XYZ
 5. Filter Approximation NUR XYZ
 6. Eulerwinkel
 7. AUSGABE in passende Datei
-8. GUI
+
 
 
 zu 3.:
@@ -44,25 +44,9 @@ aDataRow SomeData[numRows];
 #include <string>
 #include "FileHandler.h"
 #include "DataContainer.h"
-#include <conio.h> //more to come
+#include <conio.h>
 
-
-// What about using namespace std; ?!?!?!?!?!?!?!?
-
-//Bad practice!!
-
-/*
-
-Consider two libraries called Foo and Bar:
-
-using namespace foo;
-using namespace bar;
-
-Everything works fine, and you can call Blah() from Foo and Quux() from Bar without problems. But one day you upgrade to a new version of Foo 2.0, which now offers a function called Quux(). Now you've got a conflict: Both Foo 2.0 and Bar import Quux() into your global namespace. This is going to take some effort to fix, especially if the function parameters happen to match.
-
-If you had used foo::Blah() and bar::Quux(), then the introduction of foo::Quux() would have been a non-event.
-*/
-
+//#define DATAPRINT
 
 int main()
 {
@@ -72,12 +56,20 @@ int main()
     ConfigContainer config;
     DataContainer data;
 
+    /*
+    Daten einlesen
+
+    */
+
     std::cout << "Bitte Dateinamen eingeben: ";
     std::string dataFileName;
     std::getline(std::cin, dataFileName);
 
-    //schneller debuggen, einfach enter
+#ifdef _DEBUG
+    //schneller debuggen, einfach enter um test1.csv zu laden
     if (dataFileName == "") dataFileName = "test1.csv";
+#endif // DEBUG
+
 
 
     FileHandler dataFile(dataFileName);
@@ -88,15 +80,20 @@ int main()
     data.getData(dataFile);
     
 
+#ifdef DATAPRINT
+   data.printCoordinates();
+   data.printRotMatrix();
+#endif
 
-   //data.printCoordinates();
-    //data.printRotMatrix();
 
     std::cout << "Configfile laden. Leer lassen falls keine Configfile geladen werden soll: ";   
     std::string configFileName;
     std::getline(std::cin, configFileName);
-    //schneller debuggen
-    if (configFileName == "1") configFileName = "testconfig.txt";
+    
+#ifdef _DEBUG
+    //schneller debuggen, lädt testconfig falls leer
+    if (configFileName == "") configFileName = "testconfig.txt";
+#endif
 
     std::cout << configFileName;
     if (configFileName != "") {
