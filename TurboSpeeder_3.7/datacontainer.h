@@ -39,7 +39,7 @@ public:
 class DataContainer
 {
 	public:
-		DataContainer(void);
+		DataContainer(ConfigContainer& config);
 		bool getData(FileHandler& file);
 		bool averageFilter(const int n);
 		void approximateXYZ(float epsilon);
@@ -62,7 +62,7 @@ class DataContainer
 		std::vector<dataPoint> dataField;
 		std::vector<float> stringToFloatVector(const std::string& str);
 		std::vector<double> stringToDoubleVector(const std::string& str);
-		ConfigContainer config;
+		ConfigContainer *config;
 		template<typename T>
 		std::vector<T> stringToNumber(const std::string& str);
 };

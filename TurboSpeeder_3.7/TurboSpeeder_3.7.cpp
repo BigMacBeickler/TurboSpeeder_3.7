@@ -33,7 +33,7 @@ int main()
 	start = clock();
 
 	ConfigContainer config;
-	DataContainer data;
+	DataContainer data(config);
 
 /*
 Daten einlesen

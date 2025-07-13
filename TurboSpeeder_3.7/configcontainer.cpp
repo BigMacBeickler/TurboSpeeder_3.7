@@ -46,11 +46,51 @@ bool ConfigContainer::getConfigManual()
 		}
 	}
 	else if (answer == "n" || answer == "N") {
-		std::cout << "Speed will get calculated";
+		std::cout << "Speed will get calculated" << std::endl;
+	}
+	else {
+		std::cout << "Please answer with 'y' or 'n'." << std::endl;
+	}
+
+	std::cout << "Rigid orientation instead of calculated orientation? (y/n)" << std::endl;
+	std::getline(std::cin, answer);
+	if (answer == "y" || answer == "Y") {
+		this->iOrientationMode = 1;
+		std::cout << "Enter the orientation values A" << std::endl;
+		std::getline(std::cin, readstring);
+		try {
+			this->fManOrientationValues[0] = std::stof(readstring);
+		}
+		catch (std::invalid_argument const& inv) {
+			std::cout << "Invalid argument " << inv.what() << std::endl;
+			return 1;
+		}
+		std::cout << "Enter the orientation values B" << std::endl;
+		std::getline(std::cin, readstring);
+		try {
+			this->fManOrientationValues[1] = std::stof(readstring);
+		}
+		catch (std::invalid_argument const& inv) {
+			std::cout << "Invalid argument " << inv.what() << std::endl;
+			return 1;
+		}
+		std::cout << "Enter the orientation values C" << std::endl;
+		std::getline(std::cin, readstring);
+		try {
+			this->fManOrientationValues[2] = std::stof(readstring);
+		}
+		catch (std::invalid_argument const& inv) {
+			std::cout << "Invalid argument " << inv.what() << std::endl;
+			return 1;
+		}
+	}
+	else if (answer == "n" || answer == "N") {
+		std::cout << "Calculated orientation";
 	}
 	else {
 		std::cout << "Please answer with 'y' or 'n'.\n";
 	}
+
 
 	return 0;
 	//testen!!
@@ -95,7 +135,7 @@ void ConfigContainer::printConfig() const
 }
 
 
-//Needs to be implemented
+//Read config file, arrangement of attributes is 
 bool ConfigContainer::getConfigFromFile(FileHandler& file)
 {
 	std::string wholeConfigset;
@@ -288,8 +328,8 @@ int ConfigContainer::getOrientationMode() const {
 	return iOrientationMode;
 }
 
-std::array<float, 3> ConfigContainer::getManOrientationValues() const {
-	return fManOrientationValues;
+float ConfigContainer::getManOrientationValues(int n) const {
+	return fManOrientationValues[n];
 }
 
 int ConfigContainer::getBlockSize() const {

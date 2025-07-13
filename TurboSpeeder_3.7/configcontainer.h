@@ -19,7 +19,7 @@ private:
 	float fDouglasPeuckerTolerance = 1;
 	int iSpeedMode = 0;
 	float fManSpeedValue = 1;
-	int iOrientationMode = 1;
+	int iOrientationMode = 0;
 	std::array<float, 3> fManOrientationValues{};		//3 datapoints x,y and z, initialized as zeros
 	int iBlockSize = 13;								//blocksize consits of 1x timestamp, 3x space variables, 9x rotational matrix values
 	int iModus = 1;										//Modus 1 = standart; nothing more defined
@@ -56,7 +56,7 @@ public:
 	int getSpeedMode() const;
 	float getManSpeedValue() const;
 	int getOrientationMode() const;
-	std::array<float, 3> getManOrientationValues() const;
+	float getManOrientationValues(int n) const;
 	int getBlockSize() const;
 	int getModus() const;
 	int getManStartValue() const;

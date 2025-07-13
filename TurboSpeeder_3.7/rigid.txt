@@ -1,0 +1,10 @@
+name: default
+geschwindigkeitsmodus: 0
+geschwindigkeit: 1.000000
+orientierung: 1
+blocksizemode: 13
+startpunkt: 0
+stopppunkt: 0
+betriebsart: 1
+filterbreite: 5
+approximation: 5.000000

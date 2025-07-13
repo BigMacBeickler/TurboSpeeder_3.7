@@ -11,7 +11,8 @@
 #define speedSize 1
 #define eulerSize 3
 
-DataContainer::DataContainer(void)
+DataContainer::DataContainer(ConfigContainer& configRef)
+	: config(&configRef)
 {
 }
 
@@ -202,11 +203,11 @@ void DataContainer::approximateXYZ(float DouglasPeuckerTolerance) {
 
 	dataField = std::move(newData);
 
-	//Ouput
-	std::cout << "\n\n__________________________________________________________________";
-	std::cout << "\n Approxiamtionvalues:";
-	std::cout << "\n\n-> Using Douglas-Peucker tolerance = " << DouglasPeuckerTolerance;
-	std::cout << "\n-> Used points " << dataField.size() << "/" << numDatapoints << "\n\n";
+	////Ouput
+	//std::cout << "\n\n__________________________________________________________________";
+	//std::cout << "\n Approxiamtionvalues:";
+	//std::cout << "\n\n-> Using Douglas-Peucker tolerance = " << DouglasPeuckerTolerance;
+	//std::cout << "\n-> Used points " << dataField.size() << "/" << numDatapoints << "\n\n";
 }
 
 
@@ -292,8 +293,8 @@ void DataContainer::GIVEMETHESPEEEEEEEEED(void)
 		double dx0 = dataField[1].x - dataField[0].x;
 		double dy0 = dataField[1].y - dataField[0].y;
 		double dz0 = dataField[1].z - dataField[0].z;
-		double distance0 = std::sqrt(dx0 * dx0 + dy0 * dy0 + dz0 * dz0) / 100.0; // convert cm to m
-		dataField[0].speed = static_cast<float>(distance0 / dt0);
+		double distance0 = std::sqrt(dx0 * dx0 + dy0 * dy0 + dz0 * dz0); // convert cm to m
+		dataField[0].speed = (static_cast<float>(distance0 / dt0)*0.01);
 	}
 	else {
 		dataField[0].speed = 0;
@@ -309,7 +310,7 @@ void DataContainer::GIVEMETHESPEEEEEEEEED(void)
 		double dy = dataField[i].y - dataField[i - 1].y;
 		double dz = dataField[i].z - dataField[i - 1].z;
 		double distance = std::sqrt(dx * dx + dy * dy + dz * dz); 
-		dataField[i].speed = static_cast<float>(distance / dt);
+		dataField[i].speed = (static_cast<float>(distance / dt)*0.01);
 	}
 }
 
@@ -376,25 +377,40 @@ bool DataContainer::saveAsKukaSrc(const std::string& dataFileName)
 			std::cout << "Enter \"yes\" to use PTP.\n";
 		}
 	}
-
 	std::ostringstream oss;
-	oss << "&ACCESS RVP\n&REL 1\n&PARAM TEMPLATE_NAME = \"" << kukaCmd << "\"\n&PARAM EDITMASK = \"KUKATP\"\n";
-	oss << "DEF KUKA_POINTS()\n";
-	oss << "   ; X Y Z in mm, A B C in deg, Speed in mm/s\n";
+	//oss << "&ACCESS RVP\n&REL 1\n&PARAM TEMPLATE_NAME = \"" << kukaCmd << "\"\n&PARAM EDITMASK = \"KUKATP\"\n";
+	//oss << "DEF KUKA_POINTS()\n";
+	oss << "DEF test1\n";
+	//oss << "   ; X Y Z in mm, A B C in deg, Speed in mm/s\n";
+	oss << "PTP $POS_ACT\n";
 	for (const auto& dp : dataField) {
-		if (config.getSpeedMode()==0) {
-			oss << "   $VEL.CP = " << std::fixed << std::setprecision(0) << (dp.speed * 1000) << " ; mm/s\n";
+		if (config->getSpeedMode() == 0) {
+			oss << "$VEL.CP = " << std::fixed << std::setprecision(2) << (dp.speed * 1000) << "\n";
 		}
 		else {
-			oss << "   $VEL.CP = " << std::fixed << std::setprecision(0) << config.getManSpeedValue() << " ; mm/s\n";
+			oss << "$VEL.CP = " << std::fixed << std::setprecision(2) << config->getManSpeedValue() << "n";
 		}
-		oss << "   " << kukaCmd << " {X " << std::fixed << std::setprecision(6) << (dp.x * 10)
-			<< ", Y " << (dp.y * 10)
-			<< ", Z " << (dp.z * 10)
-			<< ", A " << std::setprecision(6) << dp.A
-			<< ", B " << dp.B
-			<< ", C " << dp.C
-			<< "\n";
+		std::cout << "orientation mode is " << config->getOrientationMode() << std::endl;
+		if (config->getOrientationMode() == 0) {
+			oss << "" << kukaCmd << " {X " << std::fixed << std::setprecision(6) << (dp.x)
+				<< ", Y " << (dp.y)
+				<< ", Z " << (dp.z)
+				<< ", A " << std::setprecision(6) << dp.A
+				<< ", B " << dp.B
+				<< ", C " << dp.C
+				<< "}"
+				<< "\n";
+		}
+		else {
+			oss << "" << kukaCmd << " {X " << std::fixed << std::setprecision(6) << (dp.x)
+				<< ", Y " << (dp.y)
+				<< ", Z " << (dp.z)
+				<< ", A " << std::setprecision(6) << config->getManOrientationValues(0)
+				<< ", B " << config->getManOrientationValues(1)
+				<< ", C " << config->getManOrientationValues(2)
+				<< "}"
+				<< "\n";
+		}
 	}
 	oss << "END\n";
 
