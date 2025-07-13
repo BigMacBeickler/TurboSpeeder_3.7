@@ -11,6 +11,8 @@
 #define speedSize 1
 #define eulerSize 3
 
+//DataContainer constructor that uses a ref to config to take over the values from config file.
+
 DataContainer::DataContainer(ConfigContainer& configRef)
 	: config(&configRef)
 {
