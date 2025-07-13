@@ -1,33 +1,58 @@
 #include <iostream>
 #include <sstream>
+#include <iomanip>
 
 #include "configcontainer.h"
 
 
 bool ConfigContainer::getConfigManual()
 {
+	std::string answer;
+	this->setManConfig(true);
+
 	std::string readstring;
-	std::cout << "Weite des gleitenden Mittelwertes angeben. Keine Eingabe zum Überspringen \n";
+	std::cout << "Specify the width of the moving average. Leave blank to skip. \n";
 	std::getline(std::cin, readstring);
 	try {
 		this->iMovingAverageRange = std::stoi(readstring);
 	}
 	catch (std::invalid_argument const& inv) {
-		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
-		return false;
+		std::cout << "Invalid argument " << inv.what() << std::endl;
+		return 1;
 	}
 
-	std::cout << "Toleranz des Douglas-Peucker-Filters angeben. Keine Eingabe zum Überspringen" << std::endl;
+	std::cout << "Specify the tolerance of the Douglas-Peucker filter. Leave blank to skip." << std::endl;
 	std::getline(std::cin, readstring);
 	try {
 		this->fDouglasPeuckerTolerance = std::stof(readstring);
 	}
 	catch (std::invalid_argument const& inv) {
-		std::cout << "Das war keine Zahl" << inv.what() << std::endl;
-		return false;
+		std::cout << "Invalid argument " << inv.what() << std::endl;
+		return 1;
 	}
 
+	std::cout << "Want to set a speed value? (y/n)" << std::endl;
+	std::getline(std::cin, answer);
+	if (answer == "y" || answer == "Y") {
+		this->iSpeedMode = 1;
+		std::cout << "Enter the speed value in mm/s" << std::endl;
+		std::getline(std::cin, readstring);
+		try {
+			this->fManSpeedValue = std::stof(readstring);
+		}
+		catch (std::invalid_argument const& inv) {
+			std::cout << "Invalid argument " << inv.what() << std::endl;
+			return 1;
+		}
+	}
+	else if (answer == "n" || answer == "N") {
+		std::cout << "Speed will get calculated";
+	}
+	else {
+		std::cout << "Please answer with 'y' or 'n'.\n";
+	}
 
+	return 0;
 	//testen!!
 
 	//std::cout << "Weite des gleitenden Mittelwertes angeben. Keine Eingabe zum Überspringen" << std::endl;
@@ -132,35 +157,60 @@ bool ConfigContainer::getConfigFromFile(FileHandler& file)
 	return true;
 }
 
+/**
+ * Saves the current configuration to a file in the same format as testconfig.txt,
+ * so that getConfigFromFile can read it back.
+ *
+ * @param configname The filename to save the configuration to.
+ * @return True if the file was written successfully, false otherwise.
+ */
 
-//Needs to be implemented
-//bool ConfigContainer::saveConfig(std::string configname)
-//{
-//	setName(configname);
-//	std::string datatosave;
-//	FileHandler saveFile(getName());
-//	std::stringstream ss(datatosave);
-//	ss << "geschwindigkeitsmodus: " << getSpeedMode() << "\n";
-//	ss << "geschwindigkeit: " << getManSpeedValue() << "\n";
-//	ss << "orientierung " << getOrientationMode() << "\n";
-//	ss << "blocksizemode " << getBlockSize() << "\n";
-//	ss << "startpunkt " << getManStartValue() << "\n";
-//	ss << "stopppunkt " << getManStopValue() << "\n";
-//	ss << "betriebsart " << getModus() << "\n";
-//	ss << "filterbreite " << getMovingAverageRange() << "\n";
-//	ss << "approximation " << getDouglasPeuckerTolerance() << "\n";
-//	saveFile.write(datatosave);
-//
-//	//if (saveFile.exists() == true) {
-//	//	std::cout << "Datei überschreiben?\n";
-//	//	std::string answear;
-//	//	std::cin >> answear;
-//	//	if (answear == "yes") {
-//	//		saveFile.writeConfig(*this);
-//	//	}
-//	//}
-//	return true;
-//}
+
+bool ConfigContainer::saveConfig(std::string configname)
+{
+	if (configname.size() < 4 || configname.substr(configname.size() - 4) != ".txt") {
+		configname += ".txt";
+	}
+
+	FileHandler file(configname);
+
+	// Check if file exists and prompt user
+	while (file.exists()) {
+		std::cout << "File \"" << configname << "\" already exists. Override? (y/n): ";
+		std::string answer;
+		std::getline(std::cin, answer);
+		if (answer == "y" || answer == "Y") {
+			break;
+		}
+		else if (answer == "n" || answer == "N") {
+			std::cout << "Enter new filename (with .txt extension): ";
+			std::getline(std::cin, configname);
+			file.setFilename(configname);
+			if (configname.size() < 4 || configname.substr(configname.size() - 4) != ".txt") {
+				configname += ".txt";
+			}
+		}
+		else {
+			std::cout << "Please answer with 'y' or 'n'.\n";
+		}
+	}
+
+	std::ostringstream oss;
+	oss << std::fixed << std::setprecision(6);
+	oss << "name: " << sName << "\n";
+	oss << "geschwindigkeitsmodus: " << iSpeedMode << "\n";
+	oss << "geschwindigkeit: " << fManSpeedValue << "\n";
+	oss << "orientierung: " << iOrientationMode << "\n";
+	oss << "blocksizemode: " << iBlockSize << "\n";
+	oss << "startpunkt: " << iManStartValue << "\n";
+	oss << "stopppunkt: " << iManStopValue << "\n";
+	oss << "betriebsart: " << iModus << "\n";
+	oss << "filterbreite: " << iMovingAverageRange << "\n";
+	oss << "approximation: " << fDouglasPeuckerTolerance << "\n";
+	return file.write(oss.str());
+}
+
+
 
 // Private Setters
 void ConfigContainer::setName(const std::string& name) {
@@ -207,6 +257,11 @@ void ConfigContainer::setManStopValue(int value) {
 	iManStopValue = value;
 }
 
+void ConfigContainer::setManConfig(bool value)
+{
+	bManConfig = value;
+}
+
 
 // Public Getters
 std::string ConfigContainer::getName() const {
@@ -251,4 +306,9 @@ int ConfigContainer::getManStartValue() const {
 
 int ConfigContainer::getManStopValue() const {
 	return iManStopValue;
+}
+
+bool ConfigContainer::getManConfig() const
+{
+	return bManConfig;
 }
