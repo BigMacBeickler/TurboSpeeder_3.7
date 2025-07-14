@@ -47,9 +47,6 @@ class DataContainer
 		void GIVEMETHESPEEEEEEEEED(void);
 
 		bool deleteEntry(const int n);
-		//bool getConfigFile(FileHandler& file);
-		//bool getConfigManual();
-		//bool saveConfig();
 
 		bool saveAsKukaSrc(const std::string& dataFileName);
 

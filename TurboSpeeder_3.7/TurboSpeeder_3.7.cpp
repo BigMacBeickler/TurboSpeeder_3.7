@@ -17,13 +17,14 @@
 #include <string>
 #include "FileHandler.h"
 #include "DataContainer.h"
-#include <conio.h>
+//#include <conio.h>
 
 
 //_DEBUG gets set by the IDE if the DEBUG config as compile option is selected
 
 //Debug define to print data in between 
 //#define DATAPRINT
+#define TESTMODE
 
 
 
