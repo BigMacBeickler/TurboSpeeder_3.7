@@ -21,7 +21,7 @@ double perpendicularDistance(const Point3D& pt, const Point3D& lineStart, const 
     return std::sqrt(dx * dx + dy * dy + dz * dz);
 }
 
-void douglasPeuckerRecursive(const std::vector<Point3D>& points, float epsilon, std::vector<Point3D>& result) {
+void douglasPeuckerRecursive(const std::vector<Point3D>& points, float DouglasPeuckerTolerance, std::vector<Point3D>& result) {
     if (points.size() < 2) return;
 
     double maxDist = 0;
@@ -35,13 +35,13 @@ void douglasPeuckerRecursive(const std::vector<Point3D>& points, float epsilon, 
         }
     }
 
-    if (maxDist > epsilon) {
+    if (maxDist > DouglasPeuckerTolerance) {
         std::vector<Point3D> left(points.begin(), points.begin() + index + 1);
         std::vector<Point3D> right(points.begin() + index, points.end());
 
         std::vector<Point3D> resLeft, resRight;
-        douglasPeuckerRecursive(left, epsilon, resLeft);
-        douglasPeuckerRecursive(right, epsilon, resRight);
+        douglasPeuckerRecursive(left, DouglasPeuckerTolerance, resLeft);
+        douglasPeuckerRecursive(right, DouglasPeuckerTolerance, resRight);
 
         result.insert(result.end(), resLeft.begin(), resLeft.end() - 1);
         result.insert(result.end(), resRight.begin(), resRight.end());

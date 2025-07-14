@@ -194,6 +194,7 @@ std::vector<T> DataContainer::stringToNumber(const std::string& str) {
 void DataContainer::approximateXYZ(float DouglasPeuckerTolerance) {
 	std::vector<Point3D> originalPoints;
 	size_t numDatapoints = dataField.size();
+
 	for (size_t i = 0; i < numDatapoints; ++i) {
 		originalPoints.push_back({ dataField[i].x, dataField[i].y, dataField[i].z, i });
 	}

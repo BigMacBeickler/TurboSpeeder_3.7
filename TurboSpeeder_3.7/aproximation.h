@@ -11,4 +11,4 @@ public:
 };
 
 double perpendicularDistance(const Point3D& pt, const Point3D& lineStart, const Point3D& lineEnd);
-void douglasPeuckerRecursive(const std::vector<Point3D>& points, float epsilon, std::vector<Point3D>& result);
+void douglasPeuckerRecursive(const std::vector<Point3D>& points, float DouglasPeuckerTolerance, std::vector<Point3D>& result);
