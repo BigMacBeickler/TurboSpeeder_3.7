@@ -101,7 +101,10 @@ Config einlesen
 * Daten bearbeiten, averageFilter,aproximateXYZ, rotationMatrixToEuler, speed
 */
 
-	data.averageFilter(config.getMovingAverageRange());
+	if(!data.averageFilter(config.getMovingAverageRange())) {
+		std::cout << "Filter couldn´t be applied, filter width is bigger than data field." << std::endl;
+		return false;
+	}
 	
 #ifdef DATAPRINT
 	std::cout << "Daten nach Average-Filter" << std::endl;

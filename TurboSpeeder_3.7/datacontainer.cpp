@@ -96,8 +96,12 @@ bool DataContainer::deleteEntry(const int n){
 
 bool DataContainer::averageFilter(const int n)
 {
-	if (this->dataField.size() < n || n == 0) {
-		std::cout << "Entry Invalid.\n";
+	if (n == 0) {
+		std::cout << "No filter applied" << std::endl;
+		return true;
+	}
+	else if (this->dataField.size() < n) {
+		std::cout << "Less datapoints than filter width." << std::endl;
 		return false;
 	}
 	for (size_t i = 0; i < this->dataField.size() - n; ++i) {

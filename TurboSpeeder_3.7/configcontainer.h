@@ -15,16 +15,16 @@ struct ConfigContainer
 	//(Name), Mittelwertweite, Douglas-Peucker Toleranz, Geschwindigkeitsmodus, manuelle Geschwindigkeit, Orientierungsmodus, manuelle Orientierungswerte,
 private:
 	std::string sName = "default";
-	int iMovingAverageRange = 1;
+	uint32_t iMovingAverageRange = 1;
 	float fDouglasPeuckerTolerance = 1;
-	int iSpeedMode = 0;
+	uint32_t iSpeedMode = 0;
 	float fManSpeedValue = 1;
-	int iOrientationMode = 0;
+	uint32_t iOrientationMode = 0;
 	std::array<float, 3> fManOrientationValues{};		//3 datapoints x,y and z, initialized as zeros
-	int iBlockSize = 13;								//blocksize consits of 1x timestamp, 3x space variables, 9x rotational matrix values
-	int iModus = 1;										//Modus 1 = standart; nothing more defined
-	int iManStartValue = 0;								//not used
-	int iManStopValue = 0;								//not used
+	uint32_t iBlockSize = 13;								//blocksize consits of 1x timestamp, 3x space variables, 9x rotational matrix values
+	uint32_t iModus = 1;										//Modus 1 = standart; nothing more defined
+	uint32_t iManStartValue = 0;								//not used
+	uint32_t iManStopValue = 0;								//not used
 	
 	bool bManConfig;
 	//test
