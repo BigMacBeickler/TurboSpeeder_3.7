@@ -17,14 +17,15 @@
 #include <string>
 #include "FileHandler.h"
 #include "DataContainer.h"
-//#include <conio.h>
+//#include <conio.h>  //?????????????
 
 
 //_DEBUG gets set by the IDE if the DEBUG config as compile option is selected
 
-//Debug define to print data in between 
+/*DATAPRINT define to print data in between*/
 //#define DATAPRINT
-#define TESTMODE
+/*Possible testmode*/
+//#define TESTMODE
 
 
 
@@ -40,8 +41,8 @@ int main()
 Daten einlesen
 */
 
-	std::cout << "Enter Datafilename: ";
 	std::string dataFileName;
+	std::cout << "Enter Datafilename: ";
 	std::getline(std::cin, dataFileName);
 
 #ifdef _DEBUG
@@ -51,11 +52,16 @@ Daten einlesen
 
 	FileHandler dataFile(dataFileName);
 	while (!dataFile.exists()) {
-		std::cout << "File does not exist.Retry or cancel(c).\n";
+		std::cout << "File does not exist.Retry or cancel(c)." << std::endl;
 		std::getline(std::cin, dataFileName);
-		if(dataFileName == "c") return 1;
+		if (dataFileName == "c") {
+			std::cout << "k, bye" << std::endl;
+			return 1;
+		}
 	};
-	data.getData(dataFile);
+	if (!data.getData(dataFile)) {
+		std::cout << "Fetching data failed." << std::endl;
+	};
 
 
 
@@ -70,7 +76,7 @@ Config einlesen
 
 */
 
-	std::cout << "Load Configfile. Type \"man\" for manually setting values: ";
+	std::cout << "Load Configfile. Type \"man\" for manually setting values: " << std::endl;
 	std::string configFileName;
 	std::getline(std::cin, configFileName);
 
@@ -83,7 +89,7 @@ Config einlesen
 		std::cout << configFileName;
 		FileHandler configFile(configFileName);
 		while (!dataFile.exists()) {
-			std::cout << "File does not exist.Retry or cancel(c).\n";
+			std::cout << "File does not exist.Retry or cancel(c)." << std::endl;
 			std::getline(std::cin, configFileName);
 			if (configFileName == "c") return 1;
 		};
@@ -154,7 +160,7 @@ Config einlesen
 	}
 
 	float elapsed = (float)(clock() - start) / CLOCKS_PER_SEC;
-	std::cout << "Elapsed time: " << elapsed << "\n";
+	std::cout << "Elapsed time: " << elapsed << std::endl;
 
 	return 0;
 }

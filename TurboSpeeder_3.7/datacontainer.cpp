@@ -43,10 +43,9 @@ bool DataContainer::getData(FileHandler &file)
 {
 
 	std::string wholeDataset;
+
 	wholeDataset = file.read();
 
-	//std::vector converted = stringToFloatVector(wholeDataset);
-	//std::vector<float> converted = stringToNumber<float>(wholeDataset);
 	std::vector<double> converted = stringToDoubleVector(wholeDataset);
 
 	size_t blockSize = timeSIZE + datapointSIZE + rotMatrixSIZE ; //Zusammensetzung eines Datensatzes || Zeitwert + 3 Koordinaten + 9 Rotationsmatrixwerte
@@ -82,11 +81,11 @@ bool DataContainer::getData(FileHandler &file)
 bool DataContainer::deleteEntry(const int n){
 	try {
 		if (this->dataField.begin() >= this->dataField.end()) {
-			throw("It´s emptyyyyyyyy");
+			throw("It´s emptyyyyyyyy \n");
 		}
 	}
 	catch (std::string str) {
-		std::cout << str << " \n";
+		std::cout << str << std::endl;
 		return false;
 	}
 	
@@ -209,11 +208,15 @@ void DataContainer::approximateXYZ(float DouglasPeuckerTolerance) {
 
 	dataField = std::move(newData);
 
-	////Ouput
-	//std::cout << "\n\n__________________________________________________________________";
-	//std::cout << "\n Approxiamtionvalues:";
-	//std::cout << "\n\n-> Using Douglas-Peucker tolerance = " << DouglasPeuckerTolerance;
-	//std::cout << "\n-> Used points " << dataField.size() << "/" << numDatapoints << "\n\n";
+#ifdef DATAPRINT
+	//Ouput
+	std::cout << std::endl;
+	std::cout << "__________________________________________________________________" << std::endl;
+	std::cout << " Approxiamtionvalues:" << std::endl;
+	std::cout << std::endl;
+	std::cout << "-> Using Douglas-Peucker tolerance = " << DouglasPeuckerTolerance << std::endl;
+	std::cout << "-> Used points " << dataField.size() << "/" << numDatapoints << std::endl;
+#endif
 }
 
 
@@ -275,7 +278,6 @@ void DataContainer::rotationMatrixToEulerAngels(void)
 			<< " C: " << dp.C << std::endl;
 	}
 }
-
 
 
 /**
@@ -384,10 +386,7 @@ bool DataContainer::saveAsKukaSrc(const std::string& dataFileName)
 		}
 	}
 	std::ostringstream oss;
-	//oss << "&ACCESS RVP\n&REL 1\n&PARAM TEMPLATE_NAME = \"" << kukaCmd << "\"\n&PARAM EDITMASK = \"KUKATP\"\n";
-	//oss << "DEF KUKA_POINTS()\n";
-	oss << "DEF test1\n";
-	//oss << "   ; X Y Z in mm, A B C in deg, Speed in mm/s\n";
+	oss << "DEF robobipbop\n";
 	oss << "PTP $POS_ACT\n";
 	for (const auto& dp : dataField) {
 		if (config->getSpeedMode() == 0) {
@@ -424,7 +423,6 @@ bool DataContainer::saveAsKukaSrc(const std::string& dataFileName)
 }
 
 
-
 DataContainer::~DataContainer(void)
 {
 }
@@ -442,8 +440,6 @@ std::vector<float> DataContainer::stringToFloatVector(const std::string& str)
 	}
 	return result;
 }
-
-
 
 //String in Doublevector umwandeln
 std::vector<double> DataContainer::stringToDoubleVector(const std::string& str)
