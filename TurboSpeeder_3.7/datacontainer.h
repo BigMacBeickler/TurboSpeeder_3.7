@@ -53,6 +53,8 @@ class DataContainer
 		void printCoordinates() const;
 		void printRotMatrix() const;
 
+		const std::vector<dataPoint>& __test_data() const;
+
 		~DataContainer(void);
 
 	private:

@@ -4,6 +4,7 @@
 #include <iomanip>
 #include "aproximation.h"
 
+#define TESTMODE
 
 #define timeSIZE 1
 #define datapointSIZE 3
@@ -394,7 +395,7 @@ bool DataContainer::saveAsKukaSrc(const std::string& dataFileName)
 			oss << "$VEL.CP = " << std::fixed << std::setprecision(2) << (dp.speed * 1000) << "\n";
 		}
 		else {
-			oss << "$VEL.CP = " << std::fixed << std::setprecision(2) << config->getManSpeedValue() << "n";
+			oss << "$VEL.CP = " << std::fixed << std::setprecision(2) << config->getManSpeedValue() << "\n";
 		}
 		std::cout << "orientation mode is " << config->getOrientationMode() << std::endl;
 		if (config->getOrientationMode() == 0) {
@@ -454,3 +455,11 @@ std::vector<double> DataContainer::stringToDoubleVector(const std::string& str)
 	}
 	return result;
 }
+
+
+// Testmode Block
+#ifdef TESTMODE
+	// Test-only read access to parsed data for assertions in TESTMODE builds.
+	// (Does not exist in production builds.)
+	const std::vector<dataPoint>& DataContainer::__test_data() const { return dataField; }
+#endif
