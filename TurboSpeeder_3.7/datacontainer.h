@@ -27,15 +27,6 @@ public:
 	double C = 0.0; // Euler angle: was roll
 };
 
-//struct configClass
-//{
-//public:
-//	std::string name;
-//	int movingAverageRange;
-//	int douglasPeuckerTolerance;
-//	int vlleinszuviel;
-//};
-
 class DataContainer
 {
 	public:
@@ -52,6 +43,8 @@ class DataContainer
 
 		void printCoordinates() const;
 		void printRotMatrix() const;
+
+		const std::vector<dataPoint>& __test_data() const;
 
 		~DataContainer(void);
 

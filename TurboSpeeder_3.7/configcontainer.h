@@ -66,12 +66,3 @@ public:
 };
 
 
-//
-//struct configClass
-//{
-//public:
-//	std::string name;
-//	int movingAverageRange;
-//	int douglasPeuckerTolerance;
-//	int vlleinszuviel;
-//};
