@@ -2,14 +2,7 @@
 
 // TODO:
 /*
-
-2. Configfile einlesen / definieren
-3. Eingelesene Daten in Struktur speichern (Struct dementsprechend erstellen...)
-4. Filter Mittelwert (Einstellbare länge Asymmetrisch) NUR XYZ
-5. Filter Approximation NUR XYZ
-6. Eulerwinkel
-7. AUSGABE in passende Datei
-
+99. Profit
 */
 
 //#define TESTMODE

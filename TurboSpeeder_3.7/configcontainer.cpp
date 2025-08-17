@@ -93,25 +93,6 @@ bool ConfigContainer::getConfigManual()
 
 
 	return 0;
-	//testen!!
-
-	//std::cout << "Weite des gleitenden Mittelwertes angeben. Keine Eingabe zum Überspringen" << std::endl;
-	//std::getline(std::cin, readstring);
-	//if (!readstring.empty()) {
-	//	try {
-	//		//this->iModus = std::stoi(readstring);
-	//		this->setModus(std::stoi(readstring));
-	//	}
-	//	catch (std::invalid_argument const& inv) {
-	//		std::cout << "Das war keine Zahl " << inv.what() << std::endl;
-	//		return false;
-	//	}
-	//	std::cout << this->getModus() << std::endl;
-	//	return true;
-	//}
-	//else {
-	//	this->setModus(1);
-	//}
 }
 
 //Hier weiter machen

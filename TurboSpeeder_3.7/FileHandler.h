@@ -2,7 +2,6 @@
 
 #include <string>
 #include <valarray>
-//#include "configcontainer.h"
 
 class FileHandler {
 private:
