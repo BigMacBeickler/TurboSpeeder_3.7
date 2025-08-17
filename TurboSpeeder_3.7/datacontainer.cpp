@@ -249,7 +249,7 @@ void DataContainer::rotationMatrixToEulerAngels(void)
 
 		// Pitch (y-Achse)
 		if (r20 < 1.0f) {
-			if (20 > -1.0f) {
+			if (r20 > -1.0f) {
 				pitch = std::asin(-r20);
 				roll = std::atan2(r21, r22);
 				yaw = std::atan2(r10, r00);

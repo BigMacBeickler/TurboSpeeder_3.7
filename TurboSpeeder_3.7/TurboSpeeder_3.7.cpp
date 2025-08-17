@@ -17,8 +17,6 @@
 #include <string>
 #include "FileHandler.h"
 #include "DataContainer.h"
-//#include <conio.h>  //?????????????
-
 
 //_DEBUG gets set by the IDE if the DEBUG config as compile option is selected
 
@@ -26,7 +24,6 @@
 //#define DATAPRINT
 /*Possible testmode*/
 //#define TESTMODE
-
 
 
 int main()
@@ -62,8 +59,6 @@ Daten einlesen
 	if (!data.getData(dataFile)) {
 		std::cout << "Fetching data failed." << std::endl;
 	};
-
-
 
 #ifdef DATAPRINT
 	data.printCoordinates();
