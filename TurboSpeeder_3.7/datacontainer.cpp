@@ -12,8 +12,11 @@
 #define speedSize 1
 #define eulerSize 3
 
-//DataContainer constructor that uses a ref to config to take over the values from config file.
-
+/********************************************************************
+@brief    : Constructor that initializes the DataContainer with a reference to a ConfigContainer.
+@param    : configRef - Reference to a ConfigContainer object.
+@return   : None.
+*********************************************************************/
 DataContainer::DataContainer(ConfigContainer& configRef)
 	: config(&configRef)
 {
@@ -39,7 +42,11 @@ DataContainer::DataContainer(ConfigContainer& configRef)
  * - Outputs the number of datasets successfully read.
  */
 
-// wie bekomm ich am besten die daten aus dem String in den vektor?
+ /********************************************************************
+ @brief    : Reads and parses numerical data from a file into the internal data structure.
+ @param    : file - Reference to a FileHandler object used to read the raw data.
+ @return   : True if data is successfully parsed and loaded; false if the format is invalid.
+ *********************************************************************/
 bool DataContainer::getData(FileHandler &file)
 {
 
@@ -78,7 +85,11 @@ bool DataContainer::getData(FileHandler &file)
 	return true;
 }
 
-
+/********************************************************************
+@brief    : Deletes a data entry at the specified index.
+@param    : n - Index of the entry to delete.
+@return   : True if deletion was successful; false if the container is empty.
+*********************************************************************/
 bool DataContainer::deleteEntry(const int n){
 	try {
 		if (this->dataField.begin() >= this->dataField.end()) {
@@ -94,6 +105,11 @@ bool DataContainer::deleteEntry(const int n){
 	return true;
 }
 
+/********************************************************************
+@brief    : Applies a moving average filter to the position data.
+@param    : n - Width of the moving average filter.
+@return   : True if filtering was successful; false if not enough data points.
+*********************************************************************/
 bool DataContainer::averageFilter(const int n)
 {
 	if (n == 0) {
@@ -118,8 +134,11 @@ bool DataContainer::averageFilter(const int n)
 	return true;
 }
 
-
-//const because only read, no write
+/********************************************************************
+@brief    : Prints the time, position, and speed values of each data point.
+@param    : None.
+@return   : None.
+*********************************************************************/
 void DataContainer::printCoordinates() const
 {
 	std::cout << std::fixed << std::setprecision(6);
@@ -134,8 +153,11 @@ void DataContainer::printCoordinates() const
 	}
 }
 
-//const because only read, no write
-// a bit ugly :3
+/********************************************************************
+@brief    : Prints the rotation matrix values of each data point.
+@param    : None.
+@return   : None.
+*********************************************************************/
 void DataContainer::printRotMatrix() const
 {
 	std::cout << std::fixed << std::setprecision(6);
@@ -167,6 +189,11 @@ void DataContainer::printRotMatrix() const
 * returns result vector
 */
 
+/********************************************************************
+@brief    : Converts a whitespace-separated string into a vector of type T.
+@param    : str - Input string containing numerical values.
+@return   : Vector of converted values of type T.
+*********************************************************************/
 template <typename T>
 std::vector<T> DataContainer::stringToNumber(const std::string& str) {
 	std::vector<T> result;
@@ -192,6 +219,11 @@ std::vector<T> DataContainer::stringToNumber(const std::string& str) {
  * - Outputs the number of points before and after simplification, and the tolerance used.
  */
 
+ /********************************************************************
+ @brief    : Simplifies the trajectory of data points using the Douglas-Peucker algorithm.
+ @param    : DouglasPeuckerTolerance - Tolerance value controlling simplification aggressiveness.
+ @return   : None.
+ *********************************************************************/
 void DataContainer::approximateXYZ(float DouglasPeuckerTolerance) {
 	std::vector<Point3D> originalPoints;
 	size_t numDatapoints = dataField.size();
@@ -233,6 +265,11 @@ void DataContainer::approximateXYZ(float DouglasPeuckerTolerance) {
  * - The output angles are in degrees for easier interpretation.
  */
 
+ /********************************************************************
+ @brief    : Converts the rotation matrix of each data point to Euler angles (yaw, pitch, roll).
+ @param    : None.
+ @return   : None.
+ *********************************************************************/
 void DataContainer::rotationMatrixToEulerAngels(void)
 {
 	for (auto& dp : dataField) {
@@ -292,7 +329,11 @@ void DataContainer::rotationMatrixToEulerAngels(void)
  * - If the time difference is zero or negative, the speed is set to zero for that point.
  */
 
-
+ /********************************************************************
+ @brief    : Calculates the speed between consecutive data points based on position and time.
+ @param    : None.
+ @return   : None.
+ *********************************************************************/
 void DataContainer::GIVEMETHESPEEEEEEEEED(void)
 {
 	if (dataField.size() < 2) return;
@@ -339,6 +380,11 @@ void DataContainer::GIVEMETHESPEEEEEEEEED(void)
  * - Writes all lines to the .src file using FileHandler::write.
  */
 
+ /********************************************************************
+ @brief    : Saves the data points to a KUKA-compatible .src file.
+ @param    : dataFileName - Original data file name (e.g., "input.csv").
+ @return   : True if the file was successfully written; false otherwise.
+ *********************************************************************/
 bool DataContainer::saveAsKukaSrc(const std::string& dataFileName)
 {
 	// Remove .csv extension and add .src
@@ -424,13 +470,21 @@ bool DataContainer::saveAsKukaSrc(const std::string& dataFileName)
 	return outFile.write(oss.str());
 }
 
-
+/********************************************************************
+@brief    : Destructor for DataContainer.
+@param    : None.
+@return   : None.
+*********************************************************************/
 DataContainer::~DataContainer(void)
 {
 }
 
 
-//String in Floatvector umwandeln
+/********************************************************************
+@brief    : Converts a whitespace-separated string into a vector of floats.
+@param    : str - Input string containing float values.
+@return   : Vector of floats parsed from the string.
+*********************************************************************/
 std::vector<float> DataContainer::stringToFloatVector(const std::string& str)
 {
 	std::vector<float> result;
@@ -443,7 +497,11 @@ std::vector<float> DataContainer::stringToFloatVector(const std::string& str)
 	return result;
 }
 
-//String in Doublevector umwandeln
+/********************************************************************
+@brief    : Converts a whitespace-separated string into a vector of doubles.
+@param    : str - Input string containing double values.
+@return   : Vector of doubles parsed from the string.
+*********************************************************************/
 std::vector<double> DataContainer::stringToDoubleVector(const std::string& str)
 {
 	std::vector<double> result;
@@ -457,7 +515,11 @@ std::vector<double> DataContainer::stringToDoubleVector(const std::string& str)
 }
 
 
-// Testmode Block
+/********************************************************************
+@brief    : Provides read-only access to parsed data points (TESTMODE only).
+@param    : None.
+@return   : Const reference to the internal dataField vector.
+*********************************************************************/
 #ifdef TESTMODE
 	// Test-only read access to parsed data for assertions in TESTMODE builds.
 	// (Does not exist in production builds.)

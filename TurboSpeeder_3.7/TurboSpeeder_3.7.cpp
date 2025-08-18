@@ -1,11 +1,6 @@
 // TurboSpeeder_3.7.cpp : Diese Datei enthält die Funktion "main". Hier beginnt und endet die Ausführung des Programms.
 
-// TODO:
-/*
-99. Profit
-*/
-
-//#define TESTMODE
+#define TESTMODE
 
 #include <iostream>
 #include <ctime>
@@ -160,8 +155,6 @@ static void run_testmode_asserts() {
 /*DATAPRINT define to print data in between*/
 //#define DATAPRINT
 /*Possible testmode*/
-
-
 
 int main()
 {

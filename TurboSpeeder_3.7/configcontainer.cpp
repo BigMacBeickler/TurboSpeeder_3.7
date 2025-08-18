@@ -4,7 +4,11 @@
 
 #include "configcontainer.h"
 
-
+/********************************************************************
+@brief    : Prompts the user to manually input configuration values via console.
+@param    : None.
+@return   : True if all inputs were successfully parsed, false if any input was invalid.
+*********************************************************************/
 bool ConfigContainer::getConfigManual()
 {
 	std::string answer;
@@ -95,11 +99,11 @@ bool ConfigContainer::getConfigManual()
 	return 0;
 }
 
-//Hier weiter machen
-//Orientierung verstehen und mit einlesen.
-//Todo: Berechnungen für Geschwindigkeit und Orientierung.
-//Umwandlung in Euler-Winkel??
-
+/********************************************************************
+@brief    : Prints the current configuration values to the console.
+@param    : None.
+@return   : None.
+*********************************************************************/
 void ConfigContainer::printConfig() const
 {
 	std::cout << "Name " << getName() << "\n" << std::endl;
@@ -112,11 +116,13 @@ void ConfigContainer::printConfig() const
 	std::cout << "Betriebsart " << getModus() << "\n" << std::endl;
 	std::cout << "Filterbreite " << getMovingAverageRange() << "\n" << std::endl;
 	std::cout << "Approximation " << getDouglasPeuckerTolerance() << "\n" << std::endl;
-	//std::cout << "Name " << getName() << "\n" << std::endl;
 }
 
-
-//Read config file, arrangement of attributes is 
+/********************************************************************
+@brief    : Loads configuration values from a file using a FileHandler.
+@param    : file - Reference to a FileHandler object used to read the file.
+@return   : True if the configuration was successfully loaded, false otherwise.
+*********************************************************************/
 bool ConfigContainer::getConfigFromFile(FileHandler& file)
 {
 	std::string wholeConfigset;
@@ -178,15 +184,11 @@ bool ConfigContainer::getConfigFromFile(FileHandler& file)
 	return true;
 }
 
-/**
- * Saves the current configuration to a file in the same format as testconfig.txt,
- * so that getConfigFromFile can read it back.
- *
- * @param configname The filename to save the configuration to.
- * @return True if the file was written successfully, false otherwise.
- */
-
-
+/********************************************************************
+@brief    : Saves the current configuration to a file in text format.
+@param    : configname - The desired filename to save the configuration.
+@return   : True if the file was successfully written, false otherwise.
+*********************************************************************/
 bool ConfigContainer::saveConfig(std::string configname)
 {
 	if (configname.size() < 4 || configname.substr(configname.size() - 4) != ".txt") {
@@ -230,8 +232,6 @@ bool ConfigContainer::saveConfig(std::string configname)
 	oss << "approximation: " << fDouglasPeuckerTolerance << "\n";
 	return file.write(oss.str());
 }
-
-
 
 // Private Setters
 void ConfigContainer::setName(const std::string& name) {
@@ -282,7 +282,6 @@ void ConfigContainer::setManConfig(bool value)
 {
 	bManConfig = value;
 }
-
 
 // Public Getters
 std::string ConfigContainer::getName() const {

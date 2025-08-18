@@ -1,6 +1,12 @@
-// This will be the aproximation
 #include "aproximation.h"
 
+/********************************************************************
+@brief    : Calculates the shortest (perpendicular) distance from a point to a line in 3D space.
+@param    : pt - The point from which the distance is measured.
+            lineStart - The starting point of the line.
+            lineEnd - The ending point of the line.
+@return   : The perpendicular distance between the point and the line.
+*********************************************************************/
 double perpendicularDistance(const Point3D& pt, const Point3D& lineStart, const Point3D& lineEnd) {
     Point3D u = { lineEnd.x - lineStart.x, lineEnd.y - lineStart.y, lineEnd.z - lineStart.z };
     Point3D v = { pt.x - lineStart.x, pt.y - lineStart.y, pt.z - lineStart.z };
@@ -21,6 +27,13 @@ double perpendicularDistance(const Point3D& pt, const Point3D& lineStart, const 
     return std::sqrt(dx * dx + dy * dy + dz * dz);
 }
 
+/********************************************************************
+@brief    : Recursive implementation of the Douglas-Peucker algorithm to simplify a sequence of 3D points.
+@param    : points - The input vector of 3D points to be simplified.
+            DouglasPeuckerTolerance - The tolerance threshold for simplification.
+            result - The output vector containing the simplified points.
+@return   : None. The simplified points are stored in the 'result' vector.
+*********************************************************************/
 void douglasPeuckerRecursive(const std::vector<Point3D>& points, float DouglasPeuckerTolerance, std::vector<Point3D>& result) {
     if (points.size() < 2) return;
 
