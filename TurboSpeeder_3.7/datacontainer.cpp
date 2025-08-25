@@ -70,11 +70,13 @@ bool DataContainer::getData(FileHandler &file)
 		return false;
 	}
 
+	//SCHOULD BE WORKED ON
+	/*
 	if (converted.size() == 0) {
 		std::cout << "No data found in file." << std::endl;
 		return false;
 	}
-
+	*/
 	std::cout << std::fixed << std::setprecision(6);
 	for (size_t i = 0; i < converted.size(); i += blockSize) {
 		dataPoint dp;
