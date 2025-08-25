@@ -59,13 +59,13 @@ bool DataContainer::getData(FileHandler &file)
 	size_t blockSize = timeSIZE + datapointSIZE + rotMatrixSIZE ; //Zusammensetzung eines Datensatzes || Zeitwert + 3 Koordinaten + 9 Rotationsmatrixwerte
 	
 	
-
+	// check if datafield is empty = thus no data loaded
 	if (converted.size() == 0) {
 		std::cout << "No data found in file." << std::endl;
 		return false;
 	}
 
-
+	// check if data is correct = check if size of data is multiple of blocksize
 	 if (converted.size() % blockSize != 0) {
 		std::cout << "Data is incoherent" << std::endl;
 		return false;
