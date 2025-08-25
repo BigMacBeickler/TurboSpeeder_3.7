@@ -424,9 +424,9 @@ bool DataContainer::saveAsKukaSrc(const std::string& dataFileName)
 	// Ask user for command type
 	std::string kukaCmd;
 	while (true) {
-		std::cout << "Default is LIN, type \"yes\" to use PTP?";
+		std::cout << "Default is LIN(leave blank), type \"PTP\" to use PTP?";
 		std::getline(std::cin, kukaCmd);
-		if (kukaCmd == "yes" || kukaCmd == "YES" || kukaCmd == "y") {
+		if (kukaCmd == "ptp" || kukaCmd == "PTP") {
 			kukaCmd = "PTP";
 			break;
 		}
@@ -435,7 +435,7 @@ bool DataContainer::saveAsKukaSrc(const std::string& dataFileName)
 			break;
 		}
 		else {
-			std::cout << "Enter \"yes\" to use PTP.\n";
+			std::cout << "Enter \"PTP\" to use PTP.\n";
 		}
 	}
 	std::ostringstream oss;

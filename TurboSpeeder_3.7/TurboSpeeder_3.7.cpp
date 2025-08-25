@@ -10,7 +10,7 @@
 
 
 
-//Tesmode functions
+//Testmode functions
 #ifdef TESTMODE
 #include <cassert>
 #include <array>
@@ -119,15 +119,17 @@ static void run_testmode_asserts() {
         DataContainer   data(cfg);
         FileHandler     fbad(fname);
 
-        bool threw = false;
-        try {
-            (void)data.getData(fbad); // current code throws const char* on incoherent size
-        }
-        catch (const char* msg) {
-            threw = true;
-            (void)msg; // message is "Data is incoherent" in the current implementation
-        }
-        assert(threw && "expected getData() to throw on incoherent block size");
+        bool ok = data.getData(fbad);
+        assert(!ok && "test");
+        //bool threw = false;
+        //try {
+        //    (void)data.getData(fbad); // current code throws const char* on incoherent size
+        //}
+        //catch (const char* msg) {
+        //    threw = true;
+        //    (void)msg; // message is "Data is incoherent" in the current implementation
+        //}
+        //assert(threw && "expected getData() to throw on incoherent block size");
     }
 
     // === Negative Test B: empty file (implementation note) =================
@@ -142,7 +144,7 @@ static void run_testmode_asserts() {
         // Current implementation parses 0 numbers and returns true with 0 datasets.
         bool ok = data.getData(fempty);
         const auto& v = data.__test_data();
-        assert(ok && v.empty() && "empty input -> 0 datasets (adjust code if spec requires failure)");
+        assert(!ok && v.empty() && "empty input -> 0 datasets (adjust code if spec requires failure)");
     }
 
     std::cout << "[TESTMODE] all asserts passed.\n";
@@ -189,12 +191,13 @@ Daten einlesen
 		std::getline(std::cin, dataFileName);
 		if (dataFileName == "c") {
 			std::cout << "k, bye" << std::endl;
-			return 1;
+			return false;
 		}
-
+        dataFile = FileHandler(dataFileName);
 	};
 	if (!data.getData(dataFile)) {
 		std::cout << "Fetching data failed." << std::endl;
+        return false;
 	};
 
 #ifdef DATAPRINT
@@ -204,8 +207,7 @@ Daten einlesen
 
 
 /*
-Config einlesen
-
+*Config einlesen
 */
 
 	std::cout << "Load Configfile. Type \"man\" for manually setting values: " << std::endl;
@@ -224,12 +226,14 @@ Config einlesen
 			std::cout << "File does not exist.Retry or cancel(c)." << std::endl;
 			std::getline(std::cin, configFileName);
 			if (configFileName == "c") return 1;
+            configFile = FileHandler(configFileName);
 		};
-		config.getConfigFromFile(configFile);
+        config.getConfigFromFile(configFile);
 	}
 	else {
 		if(config.getConfigManual()) return 1;
 	}
+
 
 #ifdef DATAPRINT
 	config.printConfig();
