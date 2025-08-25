@@ -191,6 +191,7 @@ Daten einlesen
 			std::cout << "k, bye" << std::endl;
 			return 1;
 		}
+
 	};
 	if (!data.getData(dataFile)) {
 		std::cout << "Fetching data failed." << std::endl;

@@ -15,7 +15,7 @@ bool ConfigContainer::getConfigManual()
 	this->setManConfig(true);
 
 	std::string readstring;
-	std::cout << "Specify the width of the moving average. Leave blank to skip. \n";
+	std::cout << "Specify the width of the moving average. insert 0 to not use. \n";
 	std::getline(std::cin, readstring);
 	try {
 		this->iMovingAverageRange = std::stoi(readstring);
@@ -25,7 +25,7 @@ bool ConfigContainer::getConfigManual()
 		return 1;
 	}
 
-	std::cout << "Specify the tolerance of the Douglas-Peucker filter. Leave blank to skip." << std::endl;
+	std::cout << "Specify the tolerance of the Douglas-Peucker filter.  insert 0.0 to not use." << std::endl;
 	std::getline(std::cin, readstring);
 	try {
 		this->fDouglasPeuckerTolerance = std::stof(readstring);

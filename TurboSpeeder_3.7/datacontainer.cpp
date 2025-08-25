@@ -65,10 +65,16 @@ bool DataContainer::getData(FileHandler &file)
 			throw("Data is incoherent");
 		}
 	}
-	catch(std::string str) {
+	catch (std::string str) {
 		std::cout << str << std::endl;
 		return false;
 	}
+
+	if (converted.size() == 0) {
+		std::cout << "No data found in file." << std::endl;
+		return false;
+	}
+
 	std::cout << std::fixed << std::setprecision(6);
 	for (size_t i = 0; i < converted.size(); i += blockSize) {
 		dataPoint dp;
@@ -81,6 +87,7 @@ bool DataContainer::getData(FileHandler &file)
 		}
 		this->dataField.push_back(dp);
 	}
+
 	std::cout << "Read " << this->dataField.size() << " datasets " << std::endl;
 	return true;
 }
