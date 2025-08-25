@@ -58,7 +58,7 @@ bool DataContainer::getData(FileHandler &file)
 
 	size_t blockSize = timeSIZE + datapointSIZE + rotMatrixSIZE ; //Zusammensetzung eines Datensatzes || Zeitwert + 3 Koordinaten + 9 Rotationsmatrixwerte
 	
-
+	/*
 	//dafuq th catch?
 	try {
 		if (converted.size() % blockSize != 0) {
@@ -69,14 +69,21 @@ bool DataContainer::getData(FileHandler &file)
 		std::cout << str << std::endl;
 		return false;
 	}
+	*/
 
-	//SCHOULD BE WORKED ON
-	/*
-	if (converted.size() == 0) {
-		std::cout << "No data found in file." << std::endl;
+	//if (converted.size() == 0) {
+	//	std::cout << "No data found in file." << std::endl;
+	//	return false;
+	//}
+
+
+	 if (converted.size() % blockSize != 0) {
+		std::cout << "Data is incoherent" << std::endl;
 		return false;
 	}
-	*/
+
+
+
 	std::cout << std::fixed << std::setprecision(6);
 	for (size_t i = 0; i < converted.size(); i += blockSize) {
 		dataPoint dp;
