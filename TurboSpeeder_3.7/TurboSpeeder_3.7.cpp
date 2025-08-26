@@ -121,15 +121,7 @@ static void run_testmode_asserts() {
 
         bool ok = data.getData(fbad);
         assert(!ok && "test");
-        //bool threw = false;
-        //try {
-        //    (void)data.getData(fbad); // current code throws const char* on incoherent size
-        //}
-        //catch (const char* msg) {
-        //    threw = true;
-        //    (void)msg; // message is "Data is incoherent" in the current implementation
-        //}
-        //assert(threw && "expected getData() to throw on incoherent block size");
+
     }
 
     // === Negative Test B: empty file (implementation note) =================
