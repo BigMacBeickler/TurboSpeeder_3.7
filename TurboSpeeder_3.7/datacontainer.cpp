@@ -73,21 +73,28 @@ bool DataContainer::getData(FileHandler &file)
 
 
 
-	std::cout << std::fixed << std::setprecision(6);
-	for (size_t i = 0; i < converted.size(); i += blockSize) {
-		dataPoint dp;
-		dp.time = converted[i];
-		dp.x = converted[i + 1];
-		dp.y = converted[i + 2];
-		dp.z = converted[i + 3];
-		for (int j = 0; j < 9; ++j) {
-			dp.rotMatrix[j] = converted[i + 4 + j];
-		}
-		this->dataField.push_back(dp);
-	}
+	 std::cout << std::fixed << std::setprecision(6);
+	 for (size_t i = 0; i < converted.size(); i += blockSize) {
+		 dataPoint dp;
+		 dp.time = converted[i];
 
-	std::cout << "Read " << this->dataField.size() << " datasets " << std::endl;
-	return true;
+		 // Check for strictly increasing timestamps
+		 if (i > 0 && converted[i] < converted[i - blockSize]) {
+			 std::cout << "Timestamps must be strictly increasing." << std::endl;
+			 return false;
+		 }
+
+		 dp.x = converted[i + 1];
+		 dp.y = converted[i + 2];
+		 dp.z = converted[i + 3];
+		 for (int j = 0; j < 9; ++j) {
+			 dp.rotMatrix[j] = converted[i + 4 + j];
+		 }
+		 this->dataField.push_back(dp);
+	 }
+
+	 std::cout << "Read " << this->dataField.size() << " datasets " << std::endl;
+	 return true;
 }
 
 /********************************************************************
