@@ -448,6 +448,15 @@ bool DataContainer::saveAsKukaSrc(const std::string& dataFileName)
 	std::ostringstream oss;
 	oss << "DEF robobipbop\n";
 	oss << "PTP $POS_ACT\n";
+
+	if (config->getOrientationMode() == 1) {
+		std::cout << "orientation mode is rigid" << std::endl;
+	}
+	else
+	{
+		std::cout << "orientation mode is calculated"  << std::endl;
+	}
+	
 	for (const auto& dp : dataField) {
 		if (config->getSpeedMode() == 0) {
 			oss << "$VEL.CP = " << std::fixed << std::setprecision(2) << (dp.speed * 1000) << "\n";
@@ -455,7 +464,7 @@ bool DataContainer::saveAsKukaSrc(const std::string& dataFileName)
 		else {
 			oss << "$VEL.CP = " << std::fixed << std::setprecision(2) << config->getManSpeedValue() << "\n";
 		}
-		std::cout << "orientation mode is " << config->getOrientationMode() << std::endl;
+		//std::cout << "orientation mode is " << config->getOrientationMode() << std::endl;
 		if (config->getOrientationMode() == 0) {
 			oss << "" << kukaCmd << " {X " << std::fixed << std::setprecision(6) << (dp.x)
 				<< ", Y " << (dp.y)
