@@ -500,7 +500,6 @@ DataContainer::~DataContainer(void)
 {
 }
 
-
 /********************************************************************
 @brief    : Converts a whitespace-separated string into a vector of floats.
 @param    : str - Input string containing float values.
@@ -534,7 +533,6 @@ std::vector<double> DataContainer::stringToDoubleVector(const std::string& str)
 	}
 	return result;
 }
-
 
 /********************************************************************
 @brief    : Provides read-only access to parsed data points (TESTMODE only).
