@@ -17,7 +17,6 @@ public:
     //bool remove() const;
     std::string getFilename() const;
     void setFilename(const std::string& newName);
-    std::valarray<float> readCSV() const;
 
 };
 

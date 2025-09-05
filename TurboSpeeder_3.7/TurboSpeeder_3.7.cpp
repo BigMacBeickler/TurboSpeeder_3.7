@@ -190,6 +190,7 @@ Daten einlesen
 	if (dataFileName == "") dataFileName = "test1.csv";
 #endif // DEBUG
 
+    //Retry löschen
 	FileHandler dataFile(dataFileName);
 	while (!dataFile.exists()) {
 		std::cout << "File does not exist.Retry or cancel(c)." << std::endl;

@@ -10,6 +10,8 @@ bool ConfigContainer::getConfigManual()
 	std::string answer;
 	this->setManConfig(true);
 
+
+	//Filteraussage ändern zu 0 eintragen
 	std::string readstring;
 	std::cout << "Specify the width of the moving average. Leave blank to skip. \n";
 	std::getline(std::cin, readstring);
